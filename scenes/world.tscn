@@ -9,15 +9,23 @@ size = Vector3(8.4, 0.2, 1)
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nnsk1"]
 data = PackedVector3Array(-4.2, 0.099999994, 0.5, 4.2, 0.099999994, 0.5, -4.2, -0.099999994, 0.5, 4.2, 0.099999994, 0.5, 4.2, -0.099999994, 0.5, -4.2, -0.099999994, 0.5, 4.2, 0.099999994, -0.5, -4.2, 0.099999994, -0.5, 4.2, -0.099999994, -0.5, -4.2, 0.099999994, -0.5, -4.2, -0.099999994, -0.5, 4.2, -0.099999994, -0.5, 4.2, 0.099999994, 0.5, 4.2, 0.099999994, -0.5, 4.2, -0.099999994, 0.5, 4.2, 0.099999994, -0.5, 4.2, -0.099999994, -0.5, 4.2, -0.099999994, 0.5, -4.2, 0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, -0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, -0.099999994, 0.5, -4.2, -0.099999994, -0.5, 4.2, 0.099999994, 0.5, -4.2, 0.099999994, 0.5, 4.2, 0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, 0.099999994, -0.5, 4.2, 0.099999994, -0.5, -4.2, -0.099999994, 0.5, 4.2, -0.099999994, 0.5, -4.2, -0.099999994, -0.5, 4.2, -0.099999994, 0.5, 4.2, -0.099999994, -0.5, -4.2, -0.099999994, -0.5)
-[ext_resource type="Script" uid="uid://da7rsqxbbin84" path="res://scripts/world.gd" id="1_rwgxs"]
 
 [node name="World" type="Node3D" unique_id=1512766956]
-script = ExtResource("1_rwgxs")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1288977211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=6382382]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+mesh = SubResource("BoxMesh_e5uuo")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1196518227]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=44537514]
+shape = SubResource("ConcavePolygonShape3D_nnsk1")
+
 [node name="Player" parent="." unique_id=872718762 instance=ExtResource("1_nnsk1")]
+visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1205801892]
 transform = Transform3D(1, 0, 0, 0, 0.6427876, 0.7660444, 0, -0.7660444, 0.6427876, 0, 0, 0)
