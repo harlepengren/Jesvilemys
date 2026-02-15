@@ -13,13 +13,22 @@ extends CharacterBody3D
 var air_time = self.max_air_time + 1
 
 @onready var model_reference = $'Model'
+@onready var animation_reference = $'Model/AnimationPlayer'
 
 var last_direction = Vector2(0, 0)
 var was_airborn = true
 
+var animation_states = {
+	'on_floor': true,
+	'walking': false
+}
+
 
 func handle_gravity(delta: float) -> void:
-	if self.is_on_floor():
+	var on_floor = self.is_on_floor()
+	self.animation_states.on_floor = on_floor
+
+	if on_floor:
 		self.air_time = 0
 
 		if self.was_airborn:
@@ -43,8 +52,12 @@ func handle_jump() -> void:
 func handle_movement() -> void: # Get the input direction and handle the movement/deceleration	
 	var direction := Input.get_axis('player_move_left', 'player_move_right')
 	if !direction:
+		self.animation_states.walking = false
 		self.velocity.x = move_toward(self.velocity.x, 0, self.speed_decrease)
 		return
+
+	model_reference.rotation.y = move_toward(model_reference.rotation.y, direction * 1.5, 0.2)
+	self.animation_states.walking = true
 
 	if self.last_direction.x != direction and self.last_direction.x != 0:
 		self.velocity.x = move_toward(self.velocity.x, direction * self.top_speed, self.turn_speed)
@@ -67,3 +80,18 @@ func _physics_process(delta: float) -> void:
 	
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
+
+
+func handle_animation() -> void:
+	if !self.animation_states.on_floor:
+		animation_reference.play('jump')
+		return
+
+	if self.animation_states.walking:
+		animation_reference.play('sprint')
+		return
+
+	animation_reference.play('idle')
+
+func _process(delta: float) -> void:
+	handle_animation()
