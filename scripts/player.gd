@@ -1,6 +1,5 @@
 extends CharacterBody3D
 
-
 @export_category('Speed')
 @export var top_speed = 5.0
 @export var speed_increase = 0.6
@@ -32,7 +31,7 @@ func handle_gravity(delta: float) -> void:
 		if self.air_time == 50:
 			self.was_airborn = true
 
-func handle_jump() -> void:
+func handle_jump() -> void:	
 	if !Input.is_action_just_pressed('player_jump'):
 		return
 	if !(self.is_on_floor() or self.air_time <= self.max_air_time):
@@ -41,7 +40,7 @@ func handle_jump() -> void:
 	self.velocity.y = self.jump_velocity
 	self.air_time = self.max_air_time + 1
 
-func handle_movement() -> void: # Get the input direction and handle the movement/deceleration
+func handle_movement() -> void: # Get the input direction and handle the movement/deceleration	
 	var direction := Input.get_axis('player_move_left', 'player_move_right')
 	if !direction:
 		self.velocity.x = move_toward(self.velocity.x, 0, self.speed_decrease)
@@ -57,9 +56,14 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 	self.last_direction.x = direction
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
+	
 	self.handle_gravity(delta)
 
 	self.handle_jump()
 	self.handle_movement()
 
 	self.move_and_slide()
+	
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
