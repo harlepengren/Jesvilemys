@@ -21,6 +21,8 @@ var air_time = self.max_air_time + 1
 @onready var animation_reference = $'Model/AnimationPlayer'
 @onready var punch_area_reference = $'Area3D'
 
+@onready var world_reference = $'../'
+
 var last_direction = Vector2(0, 0)
 var was_airborn = true
 
@@ -79,6 +81,14 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 
 	punch_area_reference.position.x = last_direction.x * 0.3
 
+func use_item(item_soul):
+	if item_soul == 'none': pass
+	else:
+		world_reference.title_board_reference.change_colors(Color(0.9, 0.6, 0.7, 1.0), Color(0.5, 0.0, 0.2, 1.0))
+		world_reference.title_board_reference.display_text('Invalid item soul: ' + item_soul)
+
+		push_error('Invalid item soul: ' + item_soul)
+
 func handle_punch():
 	if !Input.is_action_just_pressed('player_punch'):
 		if self.animation_states.punch > 0:
@@ -98,10 +108,10 @@ func handle_punch():
 	for punchable_area in punch_area_reference.get_overlapping_areas():
 		var area_parent = punchable_area.get_parent()
 
-		if 'punch' not in area_parent: continue # Check punch function
+		if 'item_id' not in area_parent: continue # Check if item
 		if !area_parent.punch(): continue # Run punch function
 
-		print('Interacted with item')
+		use_item(world_reference.current_item_souls[area_parent.item_id])
 
 	self.animation_states.punch = 25
 	model_reference.rotation.y = self.last_direction.x * 1.5

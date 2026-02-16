@@ -1,6 +1,8 @@
 extends Node3D
 
 
+@export var item_id: String
+
 @onready var animation_reference = $'AnimationPlayer'
 
 var is_punched = false

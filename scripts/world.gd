@@ -23,4 +23,4 @@ func _on_item_timer_timeout() -> void:
 	for item_type in self.current_item_souls.keys():
 		current_item_souls[item_type] = self.possible_item_souls.pick_random()
 
-	item_timer_reference.start(5)
+	item_timer_reference.start(10)
