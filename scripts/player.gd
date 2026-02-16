@@ -108,8 +108,15 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 
 	punch_area_reference.position.x = last_direction.x * 0.3
 
-func use_item(item_soul):
+func use_item(item_soul, item_location: Vector3):
 	if item_soul == 'none': pass
+	elif item_soul == 'explode':
+		var distance_x = (item_location - self.position).x
+		distance_x = distance_x / abs(distance_x)
+
+		self.punched(Vector3(distance_x * -16.0, 10.0, 0.0))
+		world_reference.camera_reference.start_shake(Vector3(-0.1, -0.1, 0.0), Vector3(0.1, 0.1, 0.0), 0.15)
+
 	else:
 		world_reference.title_board_reference.change_colors(Color(0.9, 0.6, 0.7, 1.0), Color(0.5, 0.0, 0.2, 1.0))
 		world_reference.title_board_reference.display_text('Invalid item soul: ' + item_soul)
@@ -130,15 +137,15 @@ func handle_punch():
 		var distance_x = (punchable_body.position - self.position).x
 		distance_x = distance_x / abs(distance_x)
 
-		punchable_body.velocity = Vector3(distance_x * 8.0, 1.0, 0.0)
+		punchable_body.punched(Vector3(distance_x * 8.0, 1.0, 0.0))
 
 	for punchable_area in punch_area_reference.get_overlapping_areas():
 		var area_parent = punchable_area.get_parent()
 
 		if 'item_id' not in area_parent: continue # Check if item
-		if !area_parent.punch(): continue # Run punch function
+		if !area_parent.punched(): continue # Run punch function
 
-		use_item(world_reference.current_item_souls[area_parent.item_id])
+		use_item(world_reference.current_item_souls[area_parent.item_id], area_parent.position)
 
 	self.animation_states.punch = 25
 	model_reference.rotation.y = self.last_direction.x * 1.5
@@ -185,3 +192,9 @@ func handle_animation() -> void:
 
 func _process(_delta: float) -> void:
 	handle_animation()
+
+
+func punched(knockback_strength: Vector3) -> bool:
+	
+	self.velocity = knockback_strength
+	return true

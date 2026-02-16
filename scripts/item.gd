@@ -23,7 +23,7 @@ func _on_timer_timeout() -> void:
 	self.is_punched = false
 
 
-func punch() -> bool:
+func punched() -> bool:
 	if animation_reference.current_animation == 'shrink':
 		return false
 	
