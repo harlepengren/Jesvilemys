@@ -5,6 +5,8 @@ extends Node3D
 @export var current_item_souls: Dictionary[String, String]
 
 @onready var test_stage_scene = preload('res://scenes/stages/test.tscn')
+@onready var test_background_scene = preload('res://scenes/backgrounds/test.tscn')
+
 @onready var player_scene = preload('res://scenes/player.tscn')
 
 @onready var title_board_reference = $'CanvasLayer/TitleBoard'
@@ -14,6 +16,9 @@ extends Node3D
 func _ready() -> void:
 	var stage = test_stage_scene.instantiate()
 	self.add_child(stage)
+
+	var background = test_background_scene.instantiate()
+	self.add_child(background)
 
 	item_timer_reference.start(10)
 
