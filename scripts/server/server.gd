@@ -1,9 +1,9 @@
 extends Node
 
-extends Node
+var ip_addr
+var port
 
-	var ip_addr
-	var port
+var peer: ENetMultiplayerPeer
 
 func _ready():
 	var args = OS.get_cmdline_args()
@@ -40,5 +40,5 @@ func _get_user_args(args: Array) -> Array:
 func start_server() -> void:
 	print("starting the server . . .")
 	peer = ENetMultiplayerPeer.new()
-	peer.create_server(PORT)
+	peer.create_server(port)
 	multiplayer.multiplayer_peer = peer
