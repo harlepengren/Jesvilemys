@@ -83,6 +83,10 @@ func _enter_tree() -> void:
 
 
 func handle_animation() -> void:
+	if multiplayer.is_server():
+		# No need for animation on the server
+		return
+	
 	if !self.animation_states.on_floor:
 		animation_reference.play('jump')
 		return
@@ -93,5 +97,5 @@ func handle_animation() -> void:
 
 	animation_reference.play('idle')
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	handle_animation()
