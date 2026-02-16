@@ -47,6 +47,7 @@ offset_bottom = 31.0
 text = "Start Host"
 
 [node name="JoinButton" type="Button" parent="Control" unique_id=98917459]
+visible = false
 layout_mode = 0
 offset_left = 50.0
 offset_top = 50.0
