@@ -6,13 +6,13 @@ extends CharacterBody3D
 @export var disable_punch = false
 
 @export_category('Speed')
-@export var top_speed = 5.0
+@export var top_speed = 4.0
 @export var speed_increase = 0.6
 @export var speed_decrease = 1.0
 @export var turn_speed = 1.0
 
 @export_category('Jumping')
-@export var jump_velocity = 4.5
+@export var jump_velocity = 4.8
 
 @export var max_air_time = 10
 var air_time = self.max_air_time + 1

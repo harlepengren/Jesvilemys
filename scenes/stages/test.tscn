@@ -33,16 +33,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1.2, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1.2, 0)
 
 [node name="PlatformTopLeft1" parent="." unique_id=1764192078 instance=ExtResource("1_44c15")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -1.4901161e-08, 0)
 
 [node name="PlatformTopLeft2" parent="." unique_id=748353692 instance=ExtResource("1_44c15")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -1.4901161e-08, 0)
 
 [node name="PlatformTopRight1" parent="." unique_id=1050904979 instance=ExtResource("1_44c15")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1.4901161e-08, 0)
 
 [node name="PlatformTopRight2" parent="." unique_id=1099414694 instance=ExtResource("1_44c15")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1.4901161e-08, 0)
 
 [node name="Dummy" parent="." unique_id=872718762 instance=ExtResource("2_kq7ji")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1, 0)
