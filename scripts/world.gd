@@ -4,8 +4,8 @@ extends Node3D
 @export var possible_item_souls: Array[String]
 @export var current_item_souls: Dictionary[String, String]
 
-@onready var test_stage_scene = preload('res://scenes/stages/test.tscn')
-@onready var test_background_scene = preload('res://scenes/backgrounds/test.tscn')
+@onready var test_stage_scene = preload('res://scenes/stages/noodle_plains.tscn')
+@onready var test_background_scene = preload('res://scenes/backgrounds/noodle_plains.tscn')
 
 @onready var player_scene = preload('res://scenes/player.tscn')
 
