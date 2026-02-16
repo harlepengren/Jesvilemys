@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://da7rsqxbbin84" path="res://scripts/world.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://s066fgmijkyf" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://cbwn4f4d1nw57" path="res://scripts/server/multiplayer.gd" id="2_rwgxs"]
-[ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://cheygtahkx81t" path="res://scenes/title_board.tscn" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="4_k0juu"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e5uuo"]
 size = Vector3(8.4, 0.2, 1)
@@ -66,13 +66,12 @@ spawn_path = NodePath("..")
 script = ExtResource("4_k0juu")
 network_player = ExtResource("1_nnsk1")
 
-[connection signal="pressed" from="Control/HostButton" to="Multiplayer" method="start_server"]
-[connection signal="pressed" from="Control/JoinButton" to="Multiplayer" method="start_client"]
-
 [node name="ItemTimer" type="Timer" parent="." unique_id=295977189]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1951990238]
 
 [node name="TitleBoard" parent="CanvasLayer" unique_id=1288526576 instance=ExtResource("3_4wyf3")]
 
+[connection signal="pressed" from="Control/HostButton" to="Multiplayer" method="start_server"]
+[connection signal="pressed" from="Control/JoinButton" to="Multiplayer" method="start_client"]
 [connection signal="timeout" from="ItemTimer" to="." method="_on_item_timer_timeout"]
