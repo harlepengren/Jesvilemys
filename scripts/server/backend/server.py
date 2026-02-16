@@ -63,7 +63,7 @@ class JServer:
     
 
 def launch_instance():
-    godot_path = "godot"  # "godot" must be in PATH
+    godot_path = "godot4"  # "godot" must be in PATH
     relative_instance_path = "~/Jesvilemys/project.godot"
     instance_path = os.path.expanduser(relative_instance_path)
 
@@ -74,6 +74,8 @@ def launch_instance():
     port = random.randint(50000, 60000)
     while is_port_in_use("192.168.1.202", port):
         port = random.randint(50000, 60000)
+
+    print(f"Launching: {godot_path} --headless --path {instance_path} {scene_path} -- --ip_addr=")
 
     # Launch headless Godot
     process = subprocess.Popen([
