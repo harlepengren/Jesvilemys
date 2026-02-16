@@ -26,18 +26,18 @@ func _ready():
 		elif arg.begins_with("--server"):
 			is_server = true
 	
-	# Validate and use the arguments
-	if ip_addr != null and port != null:
-		print("Connecting to IP: ", ip_addr, " on port: ", port)
-		# Use your ip_addr and port here
-	else:
-		print("Error: Missing required arguments")
-		if ip_addr == null:
-			print("  Missing --ip_addr")
-		if port == null:
-			print("  Missing --port")
-			
 	if is_server:
+		# Validate and use the arguments
+		if ip_addr != null and port != null:
+			print("Connecting to IP: ", ip_addr, " on port: ", port)
+			# Use your ip_addr and port here
+		else:
+			print("Error: Missing required arguments")
+			if ip_addr == null:
+				print("  Missing --ip_addr")
+			if port == null:
+				print("  Missing --port")
+			
 		start_server()
 	
 func start_server() -> void:
