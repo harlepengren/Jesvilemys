@@ -23,15 +23,15 @@ func _ready() -> void:
 	var port = Globals.get_port()
 	print("World loaded: starting on port ", port)
 	
-	multiplayer_node.start_client(port)
-	
+	if not multiplayer.is_server():
+		multiplayer_node.start_client(port)
 
 	var background = test_background_scene.instantiate()
 	self.add_child(background)
 
 	item_timer_reference.start(10)
 
-	self.spawn_simple_player() # Remove for multiplayer
+	#self.spawn_simple_player() # Remove for multiplayer
 
 func _on_item_timer_timeout() -> void:
 	title_board_reference.change_colors(Color(0.8, 0.741, 0.98), Color(0.29, 0.0, 0.74))
