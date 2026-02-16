@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Server="*uid://br4g5uv6ida7r"
 Globals="*uid://ch2gjnmg1sq27"
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [input]
 

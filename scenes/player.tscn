@@ -2,10 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://sd5xlak1t5d1" path="res://models/players/charlie.glb" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://by4o0yoxsro3t" path="res://scripts/player.gd" id="1_g2els"]
+[ext_resource type="PackedScene" uid="uid://d3eb5j0tf2uc8" path="res://models/players/daisey.glb" id="3_d2wvv"]
+[ext_resource type="PackedScene" uid="uid://duppasc7gqc0d" path="res://models/players/ellen.glb" id="4_3v2ag"]
+[ext_resource type="PackedScene" uid="uid://df3n8nm1spmke" path="res://models/players/julius.glb" id="5_jej6c"]
+[ext_resource type="PackedScene" uid="uid://dqcv1o21d5gbu" path="res://models/players/malia.glb" id="6_f1ej7"]
+[ext_resource type="PackedScene" uid="uid://ce3f5r3u2x76l" path="res://models/players/mark.glb" id="7_oprun"]
+[ext_resource type="PackedScene" uid="uid://dr1odyecs4trv" path="res://models/players/ripple.glb" id="8_a8ls1"]
+[ext_resource type="PackedScene" uid="uid://cxowdmwuulv6s" path="res://models/players/sebrina.glb" id="9_qfm1y"]
+[ext_resource type="PackedScene" uid="uid://bwaqmn3vbfi81" path="res://models/players/stefanie.glb" id="10_fulsm"]
+[ext_resource type="PackedScene" uid="uid://gdafgrxhl7x3" path="res://models/players/vannesa.glb" id="11_4r5pv"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_3vyb7"]
-height = 0.6
-radius = 0.2
+[sub_resource type="BoxShape3D" id="BoxShape3D_qhqgy"]
+size = Vector3(0.4, 0.6, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2els"]
+size = Vector3(0.3, 0.4, 0.4)
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_g2els"]
 properties/0/path = NodePath(".:position")
@@ -15,11 +26,42 @@ properties/0/replication_mode = 1
 [node name="Player" type="CharacterBody3D" unique_id=872718762]
 script = ExtResource("1_g2els")
 
-[node name="Model" parent="." unique_id=1087814130 instance=ExtResource("1_3vyb7")]
+[node name="CharlieModel" parent="." unique_id=1087814130 instance=ExtResource("1_3vyb7")]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1551611024]
+[node name="DaiseyModel" parent="." unique_id=33249564 instance=ExtResource("3_d2wvv")]
+visible = false
+
+[node name="EllenModel" parent="." unique_id=1322918414 instance=ExtResource("4_3v2ag")]
+visible = false
+
+[node name="JuliusModel" parent="." unique_id=1025560370 instance=ExtResource("5_jej6c")]
+visible = false
+
+[node name="MaliaModel" parent="." unique_id=24205057 instance=ExtResource("6_f1ej7")]
+visible = false
+
+[node name="MarkModel" parent="." unique_id=859135894 instance=ExtResource("7_oprun")]
+visible = false
+
+[node name="RippleModel" parent="." unique_id=441069808 instance=ExtResource("8_a8ls1")]
+visible = false
+
+[node name="SebrinaModel" parent="." unique_id=792635033 instance=ExtResource("9_qfm1y")]
+visible = false
+
+[node name="StefanieModel" parent="." unique_id=335936336 instance=ExtResource("10_fulsm")]
+visible = false
+
+[node name="VannesaModel" parent="." unique_id=754044215 instance=ExtResource("11_4r5pv")]
+visible = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=847196982]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
-shape = SubResource("CylinderShape3D_3vyb7")
+shape = SubResource("BoxShape3D_g2els")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=316091404]
 replication_config = SubResource("SceneReplicationConfig_g2els")
+shape = SubResource("BoxShape3D_qhqgy")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1293870630]
