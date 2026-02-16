@@ -11,8 +11,7 @@ func _ready() -> void:
 	var port = Globals.get_port()
 	print("World loaded: starting on port ", port)
 	
-	if not multiplayer.is_server():
-		multiplayer_node.start_client(port)
+	multiplayer_node.start_client(port)
 	
 
 func _process(_delta: float) -> void:
