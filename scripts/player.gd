@@ -80,23 +80,31 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 	punch_area_reference.position.x = last_direction.x * 0.3
 
 func handle_punch():
-	if Input.is_action_just_pressed('player_punch'):
-		for punchable_body in punch_area_reference.get_overlapping_bodies():
-			if punchable_body is not CharacterBody3D: continue
-			if punchable_body == self: continue
-
-			var distance_x = (punchable_body.position - self.position).x
-			distance_x = distance_x / abs(distance_x)
-
-			punchable_body.velocity = Vector3(distance_x * 8.0, 1.0, 0.0)
-
-		self.animation_states.punch = 25
-		model_reference.rotation.y = self.last_direction.x * 1.5
+	if !Input.is_action_just_pressed('player_punch'):
+		if self.animation_states.punch > 0:
+			self.animation_states.punch -= 1
 
 		return
 
-	if self.animation_states.punch > 0:
-		self.animation_states.punch -= 1
+	for punchable_body in punch_area_reference.get_overlapping_bodies():
+		if punchable_body is not CharacterBody3D: continue
+		if punchable_body == self: continue
+
+		var distance_x = (punchable_body.position - self.position).x
+		distance_x = distance_x / abs(distance_x)
+
+		punchable_body.velocity = Vector3(distance_x * 8.0, 1.0, 0.0)
+
+	for punchable_area in punch_area_reference.get_overlapping_areas():
+		var area_parent = punchable_area.get_parent()
+
+		if 'punch' not in area_parent: continue # Check punch function
+		if !area_parent.punch(): continue # Run punch function
+
+		print('Interacted with item')
+
+	self.animation_states.punch = 25
+	model_reference.rotation.y = self.last_direction.x * 1.5
 
 func _physics_process(delta: float) -> void:
 	self.handle_gravity(delta)
