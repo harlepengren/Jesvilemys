@@ -130,13 +130,13 @@ func handle_punch():
 		var distance_x = (punchable_body.position - self.position).x
 		distance_x = distance_x / abs(distance_x)
 
-		punchable_body.velocity = Vector3(distance_x * 8.0, 1.0, 0.0)
+		punchable_body.punched(Vector3(distance_x * 8.0, 1.0, 0.0))
 
 	for punchable_area in punch_area_reference.get_overlapping_areas():
 		var area_parent = punchable_area.get_parent()
 
 		if 'item_id' not in area_parent: continue # Check if item
-		if !area_parent.punch(): continue # Run punch function
+		if !area_parent.punched(): continue # Run punch function
 
 		use_item(world_reference.current_item_souls[area_parent.item_id])
 
@@ -176,3 +176,8 @@ func handle_animation() -> void:
 
 func _process(delta: float) -> void:
 	handle_animation()
+
+
+func punched(knockback_strength: Vector3) -> bool:
+	self.velocity = knockback_strength
+	return true
