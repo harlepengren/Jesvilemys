@@ -7,6 +7,9 @@ extends Node3D
 @onready var test_stage_scene = preload('res://scenes/stages/noodle_plains.tscn')
 @onready var test_background_scene = preload('res://scenes/backgrounds/noodle_plains.tscn')
 
+@onready var snowy_tops_stage_scene = preload('res://scenes/stages/snowy_tops.tscn')
+@onready var snowy_tops_background_scene = preload('res://scenes/backgrounds/snowy_tops.tscn')
+
 @onready var player_scene = preload('res://scenes/player.tscn')
 
 @onready var title_board_reference = $'CanvasLayer/TitleBoard'
