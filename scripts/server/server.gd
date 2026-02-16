@@ -23,6 +23,7 @@ func _ready():
 			print(arg.substr(7))
 			var port_str = arg.substr(7)  # Length of "--port="
 			port = int(port_str)
+			Globals.set_port(port)
 		elif arg.begins_with("--server"):
 			is_server = true
 	
