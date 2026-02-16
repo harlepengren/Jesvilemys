@@ -17,3 +17,7 @@ mono_crash.*.json
 
 # OSX
 .DS_Store
+
+# Export
+export_presets.cfg
+export/
