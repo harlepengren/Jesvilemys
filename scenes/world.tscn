@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://867yiv0tvhhp"]
 
 [ext_resource type="Script" uid="uid://da7rsqxbbin84" path="res://scripts/world.gd" id="1_k0juu"]
-[ext_resource type="PackedScene" uid="uid://s066fgmijkyf" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://cbwn4f4d1nw57" path="res://scripts/server/multiplayer.gd" id="2_rwgxs"]
-[ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="4_k0juu"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_e5uuo"]
 size = Vector3(8.4, 0.2, 1)
@@ -25,9 +23,6 @@ mesh = SubResource("BoxMesh_e5uuo")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=44537514]
 shape = SubResource("ConcavePolygonShape3D_nnsk1")
-
-[node name="Player" parent="." unique_id=872718762 instance=ExtResource("1_nnsk1")]
-visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1205801892]
 transform = Transform3D(1, 0, 0, 0, 0.6427876, 0.7660444, 0, -0.7660444, 0.6427876, 0, 0, 0)
@@ -56,12 +51,6 @@ offset_top = 50.0
 offset_right = 137.0
 offset_bottom = 81.0
 text = "Join Game"
-
-[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=813016553]
-_spawnable_scenes = PackedStringArray("uid://s066fgmijkyf")
-spawn_path = NodePath("..")
-script = ExtResource("4_k0juu")
-network_player = ExtResource("1_nnsk1")
 
 [connection signal="pressed" from="Control/HostButton" to="Multiplayer" method="start_server"]
 [connection signal="pressed" from="Control/JoinButton" to="Multiplayer" method="start_client"]
