@@ -42,16 +42,6 @@ async def handle_client(websocket):
                     await websocket.send(json.dumps(response))
                     print(f"Allocated port {allocated_port} to {client_address}")
                 
-                elif action == "release_port":
-                    # Release a previously allocated port
-                    port_to_release = data.get("port")
-                    if port_to_release:
-                        port_allocator.release_port(port_to_release)
-                        response = {
-                            "status": "success",
-                            "message": f"Port {port_to_release} released"
-                        }
-                        await websocket.send(json.dumps(response))
                 
                 else:
                     # Unknown action
@@ -88,7 +78,6 @@ async def main():
     port = 8080
     
     print(f"Starting WebSocket server on {host}:{port}")
-    print(f"Allocating ports in range {port_allocator.start_port}-{port_allocator.end_port}")
     
     async with websockets.serve(handle_client, host, port):
         await asyncio.Future()  # Run forever
