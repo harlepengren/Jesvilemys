@@ -13,8 +13,10 @@ script = ExtResource("1_o1atq")
 
 [node name="Button" type="Button" parent="." unique_id=608615980]
 layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_left = 70.0
+offset_top = 86.0
+offset_right = 327.0
+offset_bottom = 236.0
 text = "Start Game"
 
 [connection signal="pressed" from="Button" to="." method="quick_start"]
