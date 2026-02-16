@@ -8,7 +8,11 @@ func _ready() -> void:
 	var stage = test_stage_scene.instantiate()
 	self.add_child(stage)
 	
-	multiplayer_node.start_client(Globals.get_port())
+	var port = Globals.get_port()
+	print("World loaded: starting on port ", port)
+	
+	if not multiplayer.is_server():
+		multiplayer_node.start_client(port)
 	
 
 func _process(_delta: float) -> void:
