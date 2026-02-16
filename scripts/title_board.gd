@@ -25,7 +25,7 @@ func change_colors(text_color: Color, outline_color: Color) -> void:
 	title_reference.label_settings.font_color = text_color
 	title_reference.label_settings.outline_color = outline_color
 
-func display_text(text: String, time: float=1.0, fade_in_time: float=0.5, fade_out_time: float=0.5) -> void:
+func display_text(text: String, time: float=2.0, fade_in_time: float=0.5, fade_out_time: float=0.5) -> void:
 	self.title_reference.text = text
 
 	self.display_time = time
