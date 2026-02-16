@@ -16,4 +16,4 @@ func spawn_player(id:int) -> void:
 	
 	get_node(spawn_path).call_deferred("add_child", player)
 	
-	print("Player spawned")
+	print("Tree:",get_tree().root.get_children())  # See what's under root
