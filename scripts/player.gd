@@ -113,7 +113,10 @@ func use_item(item_soul, item_location: Vector3):
 	elif item_soul == 'explode':
 		var distance_x = (item_location - self.position).x
 		distance_x = distance_x / abs(distance_x)
-		self.punched(Vector3(distance_x * -16.0, 5.0, 0.0))
+
+		self.punched(Vector3(distance_x * -16.0, 10.0, 0.0))
+		world_reference.camera_reference.start_shake(Vector3(-0.1, -0.1, 0.0), Vector3(0.1, 0.1, 0.0), 0.15)
+
 	else:
 		world_reference.title_board_reference.change_colors(Color(0.9, 0.6, 0.7, 1.0), Color(0.5, 0.0, 0.2, 1.0))
 		world_reference.title_board_reference.display_text('Invalid item soul: ' + item_soul)
@@ -183,5 +186,6 @@ func _process(delta: float) -> void:
 
 
 func punched(knockback_strength: Vector3) -> bool:
+	
 	self.velocity = knockback_strength
 	return true

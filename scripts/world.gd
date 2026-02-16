@@ -15,6 +15,8 @@ extends Node3D
 @onready var title_board_reference = $'CanvasLayer/TitleBoard'
 @onready var item_timer_reference = $'ItemTimer'
 
+@onready var camera_reference = $'Camera3D'
+
 
 func _ready() -> void:
 	var stage = test_stage_scene.instantiate()
