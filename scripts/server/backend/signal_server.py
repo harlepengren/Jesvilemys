@@ -2,33 +2,16 @@ import asyncio
 import json
 import websockets
 from typing import Set
+import server
 
 class PortAllocator:
-    def __init__(self, start_port: int = 7000, end_port: int = 8000):
-        self.start_port = start_port
-        self.end_port = end_port
-        self.allocated_ports: Set[int] = set()
-        self.current_port = start_port
+    def __init__(self):
+        self.jserver = server.init_server()  # Initialize the JServer instance
     
     def allocate_port(self) -> int:
-        """Allocate the next available port."""
-        # Find next available port
-        while self.current_port in self.allocated_ports:
-            self.current_port += 1
-            if self.current_port > self.end_port:
-                self.current_port = self.start_port
-        
-        port = self.current_port
-        self.allocated_ports.add(port)
-        self.current_port += 1
+        port = self.jserver.quick_launch()  # Ensure we have an instance with an allocated port
         
         return port
-    
-    def release_port(self, port: int):
-        """Release a port back to the pool."""
-        if port in self.allocated_ports:
-            self.allocated_ports.remove(port)
-            print(f"Released port {port}")
 
 # Global port allocator
 port_allocator = PortAllocator()

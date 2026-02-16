@@ -93,8 +93,11 @@ def is_port_in_use(host: str, port: int) -> bool:
         result = s.connect_ex((host, port))
         return result == 0
     
-if __name__ == "__main__":
+def init_server():
+    '''Initializes the server.'''
     server = JServer()
     instance_id = server.create_instance()
     print(f"Created server instance with ID: {instance_id}")
     print("All instances:", server.get_all_instances())
+
+    return server
