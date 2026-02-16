@@ -1,7 +1,5 @@
 extends Node3D
 
-
-@onready var test_stage_scene = preload('res://scenes/stages/test.tscn')
 @onready var multiplayer_node = $Multiplayer
 @export var possible_item_souls: Array[String]
 @export var current_item_souls: Dictionary[String, String]
