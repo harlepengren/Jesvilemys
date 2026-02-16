@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://867yiv0tvhhp"]
 
+[ext_resource type="Script" uid="uid://da7rsqxbbin84" path="res://scripts/world.gd" id="1_k0juu"]
 [ext_resource type="PackedScene" uid="uid://s066fgmijkyf" path="res://scenes/player.tscn" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://cbwn4f4d1nw57" path="res://scripts/server/multiplayer.gd" id="2_rwgxs"]
 [ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="4_k0juu"]
@@ -11,6 +12,7 @@ size = Vector3(8.4, 0.2, 1)
 data = PackedVector3Array(-4.2, 0.099999994, 0.5, 4.2, 0.099999994, 0.5, -4.2, -0.099999994, 0.5, 4.2, 0.099999994, 0.5, 4.2, -0.099999994, 0.5, -4.2, -0.099999994, 0.5, 4.2, 0.099999994, -0.5, -4.2, 0.099999994, -0.5, 4.2, -0.099999994, -0.5, -4.2, 0.099999994, -0.5, -4.2, -0.099999994, -0.5, 4.2, -0.099999994, -0.5, 4.2, 0.099999994, 0.5, 4.2, 0.099999994, -0.5, 4.2, -0.099999994, 0.5, 4.2, 0.099999994, -0.5, 4.2, -0.099999994, -0.5, 4.2, -0.099999994, 0.5, -4.2, 0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, -0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, -0.099999994, 0.5, -4.2, -0.099999994, -0.5, 4.2, 0.099999994, 0.5, -4.2, 0.099999994, 0.5, 4.2, 0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, 0.099999994, -0.5, 4.2, 0.099999994, -0.5, -4.2, -0.099999994, 0.5, 4.2, -0.099999994, 0.5, -4.2, -0.099999994, -0.5, 4.2, -0.099999994, 0.5, 4.2, -0.099999994, -0.5, -4.2, -0.099999994, -0.5)
 
 [node name="World" type="Node3D" unique_id=1512766956]
+script = ExtResource("1_k0juu")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1288977211]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
