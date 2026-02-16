@@ -5,6 +5,7 @@ extends Node3D
 @export var current_item_souls: Dictionary[String, String]
 
 @onready var test_stage_scene = preload('res://scenes/stages/test.tscn')
+@onready var player_scene = preload('res://scenes/player.tscn')
 
 @onready var title_board_reference = $'CanvasLayer/TitleBoard'
 @onready var item_timer_reference = $'ItemTimer'
@@ -16,6 +17,8 @@ func _ready() -> void:
 
 	item_timer_reference.start(10)
 
+	self.spawn_simple_player() # Remove for multiplayer
+
 func _on_item_timer_timeout() -> void:
 	title_board_reference.change_colors(Color(0.8, 0.741, 0.98), Color(0.29, 0.0, 0.74))
 	title_board_reference.display_text('Item souls switched places!')
@@ -24,3 +27,8 @@ func _on_item_timer_timeout() -> void:
 		current_item_souls[item_type] = self.possible_item_souls.pick_random()
 
 	item_timer_reference.start(10)
+
+
+func spawn_simple_player(): # Used for basic testing
+	var player = player_scene.instantiate()
+	self.add_child(player)

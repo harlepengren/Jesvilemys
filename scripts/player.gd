@@ -17,11 +17,12 @@ extends CharacterBody3D
 @export var max_air_time = 10
 var air_time = self.max_air_time + 1
 
-@onready var model_reference = $'Model'
-@onready var animation_reference = $'Model/AnimationPlayer'
 @onready var punch_area_reference = $'Area3D'
 
 @onready var world_reference = $'../'
+
+var model_reference: Object
+var animation_reference: Object
 
 var last_direction = Vector2(0, 0)
 var was_airborn = true
@@ -33,6 +34,32 @@ var animation_states = {
 }
 
 var can_punch_hit = false
+
+var possible_skins = [
+	'CharlieModel',
+	'DaiseyModel',
+	'EllenModel',
+	'JuliusModel',
+	'MaliaModel',
+	'MarkModel',
+	'RippleModel',
+	'SebrinaModel',
+	'StefanieModel',
+	'VannesaModel'
+]
+
+
+func change_character_skin(skin_name: String):
+	if model_reference: model_reference.hide()
+
+	model_reference = self.get_node(skin_name)
+	animation_reference = model_reference.get_node('AnimationPlayer')
+
+	model_reference.show()
+
+
+func _ready() -> void:
+	change_character_skin(self.possible_skins.pick_random())
 
 
 func handle_gravity(delta: float) -> void:
