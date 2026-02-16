@@ -8,7 +8,7 @@ height = 0.6
 radius = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g2els"]
-size = Vector3(0.4, 0.4, 0.4)
+size = Vector3(0.3, 0.4, 0.4)
 
 [node name="Player" type="CharacterBody3D" unique_id=872718762]
 script = ExtResource("1_g2els")

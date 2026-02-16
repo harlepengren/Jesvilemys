@@ -1,6 +1,10 @@
 extends CharacterBody3D
 
 
+@export var disable_movement = false
+@export var disable_jump = false
+@export var disable_punch = false
+
 @export_category('Speed')
 @export var top_speed = 5.0
 @export var speed_increase = 0.6
@@ -25,6 +29,8 @@ var animation_states = {
 	'walking': false,
 	'punch': 0
 }
+
+var can_punch_hit = false
 
 
 func handle_gravity(delta: float) -> void:
@@ -54,7 +60,7 @@ func handle_jump() -> void:
 
 func handle_movement() -> void: # Get the input direction and handle the movement/deceleration
 	var direction := Input.get_axis('player_move_left', 'player_move_right')
-	if !direction:
+	if !direction or self.disable_movement:
 		self.animation_states.walking = false
 		self.velocity.x = move_toward(self.velocity.x, 0, self.speed_decrease)
 		return
@@ -71,11 +77,22 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 	self.velocity.x = move_toward(self.velocity.x, direction * self.top_speed, self.speed_increase)
 	self.last_direction.x = direction
 
-	punch_area_reference.position.x = last_direction.x * 0.5
+	punch_area_reference.position.x = last_direction.x * 0.3
 
 func handle_punch():
 	if Input.is_action_just_pressed('player_punch'):
+		for punchable_body in punch_area_reference.get_overlapping_bodies():
+			if punchable_body is not CharacterBody3D: continue
+			if punchable_body == self: continue
+
+			var distance_x = (punchable_body.position - self.position).x
+			distance_x = distance_x / abs(distance_x)
+
+			punchable_body.velocity = Vector3(distance_x * 8.0, 1.0, 0.0)
+
 		self.animation_states.punch = 25
+		model_reference.rotation.y = self.last_direction.x * 1.5
+
 		return
 
 	if self.animation_states.punch > 0:
@@ -84,10 +101,11 @@ func handle_punch():
 func _physics_process(delta: float) -> void:
 	self.handle_gravity(delta)
 
-	self.handle_jump()
+	if !self.disable_jump:
+		self.handle_jump()
 	self.handle_movement()
-
-	self.handle_punch()
+	if !self.disable_punch:
+		self.handle_punch()
 
 	self.move_and_slide()
 
