@@ -15,13 +15,15 @@ var air_time = self.max_air_time + 1
 
 @onready var model_reference = $'Model'
 @onready var animation_reference = $'Model/AnimationPlayer'
+@onready var punch_area_reference = $'Area3D'
 
 var last_direction = Vector2(0, 0)
 var was_airborn = true
 
 var animation_states = {
 	'on_floor': true,
-	'walking': false
+	'walking': false,
+	'punch': 0
 }
 
 
@@ -69,16 +71,36 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 	self.velocity.x = move_toward(self.velocity.x, direction * self.top_speed, self.speed_increase)
 	self.last_direction.x = direction
 
+	punch_area_reference.position.x = last_direction.x * 0.5
+
+func handle_punch():
+	if Input.is_action_just_pressed('player_punch'):
+		self.animation_states.punch = 25
+		return
+
+	if self.animation_states.punch > 0:
+		self.animation_states.punch -= 1
+
 func _physics_process(delta: float) -> void:
 	self.handle_gravity(delta)
 
 	self.handle_jump()
 	self.handle_movement()
 
+	self.handle_punch()
+
 	self.move_and_slide()
 
 
 func handle_animation() -> void:
+	if self.animation_states.punch:
+		if self.last_direction.x == -1:
+			animation_reference.play('attack-melee-left')
+			return
+		if self.last_direction.x == 1:
+			animation_reference.play('attack-melee-right')
+			return
+
 	if !self.animation_states.on_floor:
 		animation_reference.play('jump')
 		return
