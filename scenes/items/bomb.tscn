@@ -88,3 +88,8 @@ shape = SubResource("SphereShape3D_otn1f")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=174222152]
 libraries/ = SubResource("AnimationLibrary_iyyhl")
 autoplay = &"float"
+
+[node name="Timer" type="Timer" parent="." unique_id=31673168]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
