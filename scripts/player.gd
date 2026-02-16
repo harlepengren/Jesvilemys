@@ -108,8 +108,12 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 
 	punch_area_reference.position.x = last_direction.x * 0.3
 
-func use_item(item_soul):
+func use_item(item_soul, item_location: Vector3):
 	if item_soul == 'none': pass
+	elif item_soul == 'explode':
+		var distance_x = (item_location - self.position).x
+		distance_x = distance_x / abs(distance_x)
+		self.punched(Vector3(distance_x * -16.0, 5.0, 0.0))
 	else:
 		world_reference.title_board_reference.change_colors(Color(0.9, 0.6, 0.7, 1.0), Color(0.5, 0.0, 0.2, 1.0))
 		world_reference.title_board_reference.display_text('Invalid item soul: ' + item_soul)
@@ -138,7 +142,7 @@ func handle_punch():
 		if 'item_id' not in area_parent: continue # Check if item
 		if !area_parent.punched(): continue # Run punch function
 
-		use_item(world_reference.current_item_souls[area_parent.item_id])
+		use_item(world_reference.current_item_souls[area_parent.item_id], area_parent.position)
 
 	self.animation_states.punch = 25
 	model_reference.rotation.y = self.last_direction.x * 1.5

@@ -5,9 +5,9 @@
 
 [node name="World" type="Node3D" unique_id=1512766956]
 script = ExtResource("1_rwgxs")
-possible_item_souls = Array[String](["none"])
+possible_item_souls = Array[String](["none", "explode"])
 current_item_souls = Dictionary[String, String]({
-"bomb": "none",
+"bomb": "explode",
 "star": "none"
 })
 
