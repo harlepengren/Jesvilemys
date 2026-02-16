@@ -85,7 +85,8 @@ def launch_instance():
         scene_path,               # Scene to load
         "--",
         "--ip_addr=192.168.1.202",
-        f"--port={port}"
+        f"--port={port}",
+        "--server"
     ])
     return (process, port)
 
