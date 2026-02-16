@@ -64,7 +64,8 @@ class JServer:
 
 def launch_instance():
     godot_path = "godot"  # "godot" must be in PATH
-    instance_path = "~/Jesvilemys/project.godot"
+    relative_instance_path = "~/Jesvilemys/project.godot"
+    instance_path = os.path.expanduser(relative_instance_path)
 
     # Path to the scene you want to load (relative to project root)
     scene_path = "res://scenes/world.tscn"
