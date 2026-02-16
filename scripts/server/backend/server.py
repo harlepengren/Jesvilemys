@@ -64,10 +64,10 @@ class JServer:
 
 def launch_instance():
     godot_path = "godot"  # "godot" must be in PATH
-    instance_path = "/path/to/your/project/project.godot"
+    instance_path = "~/Jesvilemys/project.godot"
 
     # Path to the scene you want to load (relative to project root)
-    scene_path = "res://scenes/server.tscn"
+    scene_path = "res://scenes/world.tscn"
 
     # Find a random open port
     port = random.randint(50000, 60000)
@@ -92,3 +92,9 @@ def is_port_in_use(host: str, port: int) -> bool:
         s.settimeout(2) # Set a timeout to avoid hanging indefinitely
         result = s.connect_ex((host, port))
         return result == 0
+    
+if __name__ == "__main__":
+    server = JServer()
+    instance_id = server.create_instance()
+    print(f"Created server instance with ID: {instance_id}")
+    print("All instances:", server.get_all_instances())
