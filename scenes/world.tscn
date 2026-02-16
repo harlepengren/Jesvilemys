@@ -16,6 +16,7 @@ data = PackedVector3Array(-4.2, 0.099999994, 0.5, 4.2, 0.099999994, 0.5, -4.2, -
 script = ExtResource("1_k0juu")
 possible_item_souls = Array[String](["none"])
 current_item_souls = Dictionary[String, String]({
+"bomb": "none",
 "star": "none"
 })
 
