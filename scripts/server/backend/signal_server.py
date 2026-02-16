@@ -67,9 +67,6 @@ async def handle_client(websocket):
                 print(f"Error handling message: {e}")
     
     finally:
-        # Clean up: release the port when client disconnects
-        if allocated_port:
-            port_allocator.release_port(allocated_port)
         print(f"Client {client_address} disconnected")
 
 async def main():
