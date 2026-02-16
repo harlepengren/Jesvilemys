@@ -8,5 +8,5 @@ func _ready() -> void:
 	var stage = test_stage_scene.instantiate()
 	self.add_child(stage)
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass

@@ -7,7 +7,6 @@ var is_server = false
 var peer: ENetMultiplayerPeer
 
 func _ready():
-	var args = OS.get_cmdline_args()
 	var user_args = OS.get_cmdline_user_args()
 	
 	ip_addr = null

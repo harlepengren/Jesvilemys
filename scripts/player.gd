@@ -93,5 +93,5 @@ func handle_animation() -> void:
 
 	animation_reference.play('idle')
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	handle_animation()
