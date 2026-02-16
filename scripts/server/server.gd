@@ -34,6 +34,8 @@ func _ready():
 			print("  Missing --ip_addr")
 		if port == null:
 			print("  Missing --port")
+			
+	start_server()
 	
 func start_server() -> void:
 	print("starting the server . . .")
