@@ -5,3 +5,4 @@ A quick and replayable game about fighting! Expertly run around, jump, and possi
 - Player models - Credit to Kenney at https://www.kenney.nl - Under CC0
 - Platform models - Credit to Kenney at https://www.kenney.nl - Under CC0
 - Zerove font - Credit to GGBotNet at https://www.ggbot.net - Under CC0
+- Red Carpet - Created and rendered using MuseScore Studio
