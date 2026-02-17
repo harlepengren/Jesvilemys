@@ -54,4 +54,4 @@ func spawn_simple_player(): # Used for basic testing
 	
 @rpc("authority", "call_remote", "unreliable")
 func update_timer_display(time):
-	$CanvasLayer/TimeRemaining.text = str(time)
+	$CanvasLayer/TimeRemaining.text = "Time Remaining: " + "%02d" % [time]
