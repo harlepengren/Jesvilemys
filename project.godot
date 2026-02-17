@@ -11,9 +11,14 @@ config_version=5
 [application]
 
 config/name="Jesvilemys"
-run/main_scene="uid://867yiv0tvhhp"
+run/main_scene="uid://dmxg3f5my6rrw"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Server="*uid://br4g5uv6ida7r"
+Globals="*uid://ch2gjnmg1sq27"
 
 [display]
 

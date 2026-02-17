@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://dmxg3f5my6rrw"]
+
+[ext_resource type="Script" uid="uid://berhqwpk7gc6j" path="res://scripts/ui/lobby.gd" id="1_o1atq"]
+
+[node name="Control" type="Control" unique_id=837688751]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o1atq")
+
+[node name="Button" type="Button" parent="." unique_id=608615980]
+layout_mode = 0
+offset_left = 70.0
+offset_top = 86.0
+offset_right = 327.0
+offset_bottom = 236.0
+text = "Start Game"
+
+[connection signal="pressed" from="Button" to="." method="quick_start"]

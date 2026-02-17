@@ -78,7 +78,7 @@ func handle_gravity(delta: float) -> void:
 		if self.air_time == 50:
 			self.was_airborn = true
 
-func handle_jump() -> void:
+func handle_jump() -> void:	
 	if !Input.is_action_just_pressed('player_jump'):
 		return
 	if !(self.is_on_floor() or self.air_time <= self.max_air_time):
@@ -87,7 +87,7 @@ func handle_jump() -> void:
 	self.velocity.y = self.jump_velocity
 	self.air_time = self.max_air_time + 1
 
-func handle_movement() -> void: # Get the input direction and handle the movement/deceleration
+func handle_movement() -> void: # Get the input direction and handle the movement/deceleration	
 	var direction := Input.get_axis('player_move_left', 'player_move_right')
 	if !direction or self.disable_movement:
 		self.animation_states.walking = false
@@ -151,6 +151,8 @@ func handle_punch():
 	model_reference.rotation.y = self.last_direction.x * 1.5
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority(): return
+	
 	self.handle_gravity(delta)
 
 	if !self.disable_jump:
@@ -160,9 +162,16 @@ func _physics_process(delta: float) -> void:
 		self.handle_punch()
 
 	self.move_and_slide()
+	
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
 
 
 func handle_animation() -> void:
+	if multiplayer.is_server():
+		# No need for animation on the server
+		return
+	
 	if self.animation_states.punch:
 		if self.last_direction.x == -1:
 			animation_reference.play('attack-melee-left')
@@ -181,7 +190,7 @@ func handle_animation() -> void:
 
 	animation_reference.play('idle')
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	handle_animation()
 
 
