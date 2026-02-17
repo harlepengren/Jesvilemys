@@ -1,6 +1,6 @@
 extends Node3D
 
-
+@onready var multiplayer_node = $Multiplayer
 @export var possible_item_souls: Array[String]
 @export var current_item_souls: Dictionary[String, String]
 
@@ -21,13 +21,22 @@ extends Node3D
 func _ready() -> void:
 	var stage = test_stage_scene.instantiate()
 	self.add_child(stage)
+	
+	var port = Globals.get_port()
+	print("World loaded: starting on port ", port)
+	
+	if not Globals.is_server:
+		print("World: starting client")
+		multiplayer_node.start_client(port)
+	else:
+		print("Server: not starting client")
 
 	var background = test_background_scene.instantiate()
 	self.add_child(background)
 
 	item_timer_reference.start(10)
 
-	self.spawn_simple_player() # Remove for multiplayer
+	#self.spawn_simple_player() # Remove for multiplayer
 
 func _on_item_timer_timeout() -> void:
 	title_board_reference.change_colors(Color(0.8, 0.741, 0.98), Color(0.29, 0.0, 0.74))
