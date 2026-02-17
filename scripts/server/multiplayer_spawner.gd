@@ -7,10 +7,12 @@ func _ready() -> void:
 	multiplayer.peer_connected.connect(spawn_player)
 
 func spawn_player(id:int) -> void:
+	print("peer_connected fired for id: ", id)
 	if not multiplayer.is_server(): 
-		print("Trying to spawn, but I am not the server . . .")
+		print("Not the server, skipping spawn.")
 		return
 	
+	print("Spawn player for id:", id)
 	var player: Node = network_player.instantiate()
 	player.name = str(id)
 	
