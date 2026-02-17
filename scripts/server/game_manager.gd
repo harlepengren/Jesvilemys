@@ -35,8 +35,11 @@ func _process(delta: float) -> void:
 			rpc("update_timer_display",timer.time_left)
 			time_since_last_update = 0.0
 		
-		
 func _on_timer_timeout():
 	current_game_state = State.END
 	print("Timer finished")
 	timer.queue_free()
+	
+@rpc("authority", "call_remote", "unreliable")
+func update_timer_display(time):
+	pass
