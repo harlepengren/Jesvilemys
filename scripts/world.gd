@@ -51,3 +51,7 @@ func _on_item_timer_timeout() -> void:
 func spawn_simple_player(): # Used for basic testing
 	var player = player_scene.instantiate()
 	self.add_child(player)
+	
+@rpc("authority", "call_remote", "unreliable")
+func update_timer_display(time):
+	$CanvasLayer/TimeRemaining.text = "Time Remaining: " + "%02d" % [time]
