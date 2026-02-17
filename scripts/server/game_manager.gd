@@ -17,7 +17,7 @@ func _process(delta: float) -> void:
 		# Only the server gets to do things
 		return
 		
-	if current_game_state == State.WAITING and (multiplayer.get_peers().size() + 1) >= 2:
+	if current_game_state == State.WAITING and (multiplayer.get_peers().size()) >= 2:
 		current_game_state = State.RUNNING
 	
 		# Create the timer
