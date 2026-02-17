@@ -20,6 +20,7 @@ async def handle_client(websocket):
     """Handle incoming WebSocket connections."""
     client_address = websocket.remote_address
     print(f"Client connected from {client_address}")
+    print(f"Headers: {websocket.request.headers}")
     
     allocated_port = None
     
