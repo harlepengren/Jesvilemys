@@ -7,7 +7,8 @@ var time_since_last_update:float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	current_game_state = State.WAITING
+	if Globals.is_server:
+		current_game_state = State.WAITING
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -39,7 +40,3 @@ func _on_timer_timeout():
 	current_game_state = State.END
 	print("Timer finished")
 	timer.queue_free()
-	
-@rpc("authority", "call_remote", "unreliable")
-func update_timer_display(time):
-	pass
