@@ -53,6 +53,7 @@ async def handle_client(websocket):
                     await websocket.send(json.dumps(response))
                     
             except json.JSONDecodeError:
+                print("Invalid JSON received")
                 error_response = {
                     "status": "error",
                     "message": "Invalid JSON format"
@@ -60,6 +61,7 @@ async def handle_client(websocket):
                 await websocket.send(json.dumps(error_response))
             
             except Exception as e:
+                print(f"Error handling message from {client_address}: {e}")
                 error_response = {
                     "status": "error",
                     "message": str(e)
