@@ -37,6 +37,6 @@ func _process(delta: float) -> void:
 			time_since_last_update = 0.0
 		
 func _on_timer_timeout():
-	current_game_state = State.END
+	current_game_state = State.WAITING
 	print("Timer finished")
 	timer.queue_free()
