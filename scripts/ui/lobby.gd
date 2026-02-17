@@ -61,11 +61,13 @@ func handle_port_response(response: String):
 			var assigned_port = data["port"]
 			print("Received port: ", assigned_port)
 			
+			# Close the websocket
+			websocket.close(1000, "Port received")
+			
 			# Use the port for your game
 			start_game(assigned_port)
 			
-			# Close the websocket
-			websocket.close(1000, "Port received")
+
 	else:
 		push_error("Failed to parse response: " + response)
 
