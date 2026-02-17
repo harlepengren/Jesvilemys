@@ -28,6 +28,7 @@ async def handle_client(websocket):
             try:
                 # Parse incoming JSON message
                 data = json.loads(message)
+                print(f"Received message from {client_address}: {data}")
                 action = data.get("action")
                 
                 if action == "request_port":
