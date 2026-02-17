@@ -3,6 +3,7 @@ extends Node
 enum State {WAITING, RUNNING, END}
 var current_game_state:State
 var timer:Timer
+var time_since_last_update:float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,7 +26,15 @@ func _process(delta: float) -> void:
 		timer.one_shot = true
 		timer.timeout.connect(_on_timer_timeout)
 		timer.start()
+		time_since_last_update = 10 # Force initial broadcast
 		print("timer started")
+		
+	if current_game_state == State.RUNNING:
+		time_since_last_update += delta
+		if time_since_last_update > 1:
+			rpc("update_timer_display",timer.time_left)
+			time_since_last_update = 0.0
+		
 		
 func _on_timer_timeout():
 	current_game_state = State.END
