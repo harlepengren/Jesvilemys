@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://b3i2uw3dlwipd"]
+
+[node name="GameOver" type="Control" unique_id=997433859]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1961094058]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 139.0
+offset_right = 805.0
+offset_bottom = 629.0
+color = Color(0.7153372, 0.51033556, 0.3931982, 1)
+
+[node name="game_over_header" type="Label" parent="." unique_id=1847291981]
+layout_mode = 0
+offset_left = 419.0
+offset_top = 148.0
+offset_right = 636.0
+offset_bottom = 203.0
+theme_override_font_sizes/font_size = 40
+text = "Game Over"
+
+[node name="key_stats_header" type="Label" parent="." unique_id=1806606224]
+layout_mode = 0
+offset_left = 370.0
+offset_top = 221.0
+offset_right = 483.0
+offset_bottom = 255.0
+theme_override_font_sizes/font_size = 24
+text = "Key Stats:"
+
+[node name="hits_header" type="Label" parent="." unique_id=845814919]
+layout_mode = 0
+offset_left = 431.0
+offset_top = 266.0
+offset_right = 483.0
+offset_bottom = 300.0
+theme_override_font_sizes/font_size = 24
+text = "Hits: 532"
+
+[node name="deaths_header" type="Label" parent="." unique_id=1266337957]
+layout_mode = 0
+offset_left = 395.0
+offset_top = 303.0
+offset_right = 483.0
+offset_bottom = 337.0
+theme_override_font_sizes/font_size = 24
+text = "Deaths:     5"
+
+[node name="new_game_label" type="Label" parent="." unique_id=376194241]
+layout_mode = 0
+offset_left = 408.0
+offset_top = 528.0
+offset_right = 659.0
+offset_bottom = 573.0
+theme_override_font_sizes/font_size = 32
+text = "new_game_start"
