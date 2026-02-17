@@ -24,7 +24,9 @@ async def handle_client(websocket):
     allocated_port = None
     
     try:
+        print("Ready to read messages")
         async for message in websocket:
+            print(f"Received message: {message}")
             try:
                 # Parse incoming JSON message
                 data = json.loads(message)
