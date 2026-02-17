@@ -3,11 +3,11 @@ extends Control
 var websocket := WebSocketPeer.new()
 var connection_url := "ws://192.168.1.202:8080"
 var is_connecting = false
+var request_sent = false
 
 func quick_start():
-	# send a websocket message to IP_ADDRESS requesting a new position
+	# Send a websocket message to IP_ADDRESS requesting a new position
 	request_game_port()
-	pass
 
 func request_game_port():
 	var err = websocket.connect_to_url(connection_url)
@@ -17,6 +17,7 @@ func request_game_port():
 	
 	print("Connecting to server port ...")
 	is_connecting = true
+	request_sent = false
 	
 
 func _process(_delta):
@@ -30,9 +31,10 @@ func _process(_delta):
 	match state:
 		WebSocketPeer.STATE_OPEN:
 			# Connection established, send port request
-			if websocket.get_available_packet_count() == 0:
+			if not request_sent:
 				var request = JSON.stringify({"action": "request_port"})
 				websocket.send_text(request)
+				request_sent = true
 			
 			# Check for response
 			while websocket.get_available_packet_count() > 0:
