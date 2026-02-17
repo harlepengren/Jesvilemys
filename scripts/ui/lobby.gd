@@ -32,6 +32,7 @@ func _process(_delta):
 		WebSocketPeer.STATE_OPEN:
 			# Connection established, send port request
 			if not request_sent:
+				print("sending a websocket request")
 				var request = JSON.stringify({"action": "request_port"})
 				websocket.send_text(request)
 				request_sent = true
