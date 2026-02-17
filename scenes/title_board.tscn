@@ -1,11 +1,14 @@
 [gd_scene format=3 uid="uid://cheygtahkx81t"]
 
 [ext_resource type="Script" uid="uid://7n3f2gkfgkr5" path="res://scripts/title_board.gd" id="1_f6o74"]
+[ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="2_h762p"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_e0gbq"]
+font = ExtResource("2_h762p")
 font_size = 25
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="TitleBoard" type="Control" unique_id=2024905872]
 layout_mode = 3
