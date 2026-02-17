@@ -5,10 +5,6 @@ var current_game_state:State
 var timer:Timer
 var time_since_last_update:float
 
-# Load and instantiate the scene
-var game_over_scene = preload("res://scenes/UI/game_over.tscn")
-var game_over_instance
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if Globals.is_server:
@@ -32,12 +28,16 @@ func _process(delta: float) -> void:
 			get_node("/root/World").rpc("update_timer_display",timer.time_left)
 			time_since_last_update = 0.0
 
-func _start_timer(time):
+func _start_timer(time,always=false):
 	# Create the timer
 	timer = Timer.new()
 	add_child(timer)
 	timer.wait_time = time
 	timer.one_shot = true
+	
+	if always:
+		timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	timer.timeout.connect(_on_timer_timeout)
 	timer.start()
 	time_since_last_update = 10 # Force initial broadcast
@@ -50,11 +50,10 @@ func _on_timer_timeout():
 	if current_game_state == State.RUNNING:
 		current_game_state = State.END
 		get_tree().paused = true
-		_start_timer(10)
-		game_over_instance = game_over_scene.instantiate()
-		get_node("/root/World/CanvasLayer").add_child(game_over_instance)
+		_start_timer(10,true)
+		get_node("/root/World").rpc("show_game_over")
 	elif current_game_state == State.END:
 		current_game_state = State.WAITING
-		game_over_instance.queue_free()
+		get_node("/root/World").rpc("hide_game_over")
 		
 		
