@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 	if current_game_state == State.RUNNING:
 		time_since_last_update += delta
 		if time_since_last_update > 1:
-			rpc("update_timer_display",timer.time_left)
+			get_node("/root/World").rpc("update_timer_display",timer.time_left)
 			time_since_last_update = 0.0
 		
 func _on_timer_timeout():
