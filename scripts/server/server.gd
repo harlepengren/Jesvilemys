@@ -2,7 +2,6 @@ extends Node
 
 var ip_addr
 var port
-var is_server = false
 
 var peer: ENetMultiplayerPeer
 
@@ -25,9 +24,9 @@ func _ready():
 			port = int(port_str)
 			Globals.set_port(port)
 		elif arg.begins_with("--server"):
-			is_server = true
+			Globals.is_server = true
 	
-	if is_server:
+	if Globals.is_server:
 		# Validate and use the arguments
 		if ip_addr != null and port != null:
 			print("Connecting to IP: ", ip_addr, " on port: ", port)

@@ -25,8 +25,11 @@ func _ready() -> void:
 	var port = Globals.get_port()
 	print("World loaded: starting on port ", port)
 	
-	if not multiplayer.is_server():
+	if not Globals.is_server:
+		print("World: starting client")
 		multiplayer_node.start_client(port)
+	else:
+		print("Server: not starting client")
 
 	var background = test_background_scene.instantiate()
 	self.add_child(background)

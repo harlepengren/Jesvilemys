@@ -20,5 +20,13 @@ func start_client(port:int) -> void:
 		printerr("Failure connecting:",error)
 	
 	multiplayer.multiplayer_peer = peer
+	multiplayer.connected_to_server.connect(_on_connected_to_server)
+	multiplayer.connection_failed.connect(_on_connection_failed)
+
+func _on_connected_to_server():
+	print("Successfully connected to server!")
+
+func _on_connection_failed():
+	printerr("Connection to server failed!")
 	
 	
