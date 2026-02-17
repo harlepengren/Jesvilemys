@@ -46,9 +46,11 @@ func _process(_delta):
 				handle_port_response(response)
 				
 		WebSocketPeer.STATE_CLOSING:
-			pass
+			print("closing")
 			
 		WebSocketPeer.STATE_CLOSED:
+			print("Packets remaining: ", websocket.get_available_packet_count())
+			
 			var code = websocket.get_close_code()
 			print("WebSocket closed with code: %d" % code)
 			set_process(false)  # Stop processing
