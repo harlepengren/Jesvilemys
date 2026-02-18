@@ -8,6 +8,10 @@ var request_sent = false
 func quick_start():
 	# Send a websocket message to IP_ADDRESS requesting a new position
 	request_game_port()
+	
+func play_alone():
+	start_game(-1)
+	
 
 func request_game_port():
 	var err = websocket.connect_to_url(connection_url)

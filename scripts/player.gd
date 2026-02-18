@@ -47,7 +47,8 @@ var possible_skins = [
 	'StefanieModel',
 	'VannesaModel'
 ]
-
+ 
+var playing_alone:bool = false
 
 func change_character_skin(skin_name: String):
 	if model_reference: model_reference.hide()
@@ -60,6 +61,8 @@ func change_character_skin(skin_name: String):
 
 func _ready() -> void:
 	change_character_skin(self.possible_skins.pick_random())
+	if Globals.port == -1:
+		playing_alone = true
 
 
 func handle_gravity(delta: float) -> void:
@@ -151,7 +154,7 @@ func handle_punch():
 	model_reference.rotation.y = self.last_direction.x * 1.5
 
 func _physics_process(delta: float) -> void:
-	if not is_multiplayer_authority(): return
+	if not playing_alone and not is_multiplayer_authority(): return
 	
 	self.handle_gravity(delta)
 
@@ -168,7 +171,7 @@ func _enter_tree() -> void:
 
 
 func handle_animation() -> void:
-	if multiplayer.is_server():
+	if not playing_alone and multiplayer.is_server():
 		# No need for animation on the server
 		return
 	

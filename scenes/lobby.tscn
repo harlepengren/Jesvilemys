@@ -27,8 +27,24 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Quick Join"
 
+[node name="PlayAlone" type="Button" parent="." unique_id=734183452]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -62.0
+offset_right = 45.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Play Alone"
+
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=2122177784]
 stream = ExtResource("2_5gu6x")
 autoplay = true
 
 [connection signal="pressed" from="QuickJoinButton" to="." method="quick_start"]
+[connection signal="pressed" from="PlayAlone" to="." method="play_alone"]

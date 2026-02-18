@@ -17,7 +17,17 @@ extends Node3D
 
 @onready var camera_reference = $'Camera3D'
 
+var playing_alone = false
 
+func _enter_tree() -> void:
+	if Globals.port == -1:
+		playing_alone = true
+
+	if playing_alone:
+		# Delete multiplayer nodes
+		$Multiplayer.queue_free()
+		$MultiplayerSpawner.queue_free()
+	
 func _ready() -> void:
 	var stage = test_stage_scene.instantiate()
 	self.add_child(stage)
@@ -25,11 +35,16 @@ func _ready() -> void:
 	var port = Globals.get_port()
 	print("World loaded: starting on port ", port)
 	
-	if not Globals.is_server:
+	if not Globals.is_server and not playing_alone:
 		print("World: starting client")
 		multiplayer_node.start_client(port)
-	else:
+	elif Globals.is_server:
 		print("Server: not starting client")
+	elif playing_alone:
+		print("Playing alone")
+		var player_scene = preload("res://scenes/player.tscn")
+		var player = player_scene.instantiate()
+		add_child(player)		
 
 	var background = test_background_scene.instantiate()
 	self.add_child(background)
