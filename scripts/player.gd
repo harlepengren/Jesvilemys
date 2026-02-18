@@ -47,6 +47,10 @@ var possible_skins = [
 	'StefanieModel',
 	'VannesaModel'
 ]
+
+var modifiers = { # In seconds
+	'freeze': 0.0
+}
  
 var playing_alone:bool = false
 
@@ -120,6 +124,9 @@ func use_item(item_soul, item_location: Vector3):
 		self.velocity = Vector3(distance_x * -16.0, 10.0, 0.0)
 		world_reference.camera_reference.start_shake(Vector3(-0.1, -0.1, 0.0), Vector3(0.1, 0.1, 0.0), 0.15)
 
+	elif item_soul == 'freeze':
+		self.modifiers['freeze'] = 100.0
+
 	else:
 		world_reference.title_board_reference.change_colors(Color(0.9, 0.6, 0.7, 1.0), Color(0.5, 0.0, 0.2, 1.0))
 		world_reference.title_board_reference.display_text('Invalid item soul: ' + item_soul)
@@ -177,6 +184,18 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 
+func handle_modifiers() -> void:
+	if self.modifiers['freeze'] != 0.0:
+		self.modifiers['freeze'] -= 1.0
+
+		if self.modifiers['freeze'] != 0.0:
+			self.disable_movement = true
+			self.disable_jump = true
+		else:
+			self.disable_movement = false
+			self.disable_jump = false
+
+
 func handle_animation() -> void:
 	if not playing_alone and multiplayer.is_server():
 		# No need for animation on the server
@@ -201,6 +220,7 @@ func handle_animation() -> void:
 	animation_reference.play('idle')
 
 func _process(_delta: float) -> void:
+	handle_modifiers()
 	handle_animation()
 
 
