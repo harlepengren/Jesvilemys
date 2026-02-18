@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dmxg3f5my6rrw"]
 
 [ext_resource type="Script" uid="uid://berhqwpk7gc6j" path="res://scripts/ui/lobby.gd" id="1_o1atq"]
+[ext_resource type="AudioStream" uid="uid://hkisw6kl05sk" path="res://music/red_carpet_title.wav" id="2_5gu6x"]
 
 [node name="Lobby" type="Control" unique_id=837688751]
 layout_mode = 3
@@ -25,5 +26,9 @@ offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Quick Join"
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=2122177784]
+stream = ExtResource("2_5gu6x")
+autoplay = true
 
 [connection signal="pressed" from="QuickJoinButton" to="." method="quick_start"]
