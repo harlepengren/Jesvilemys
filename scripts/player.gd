@@ -117,7 +117,7 @@ func use_item(item_soul, item_location: Vector3):
 		var distance_x = (item_location - self.position).x
 		distance_x = distance_x / abs(distance_x)
 
-		self.punched(Vector3(distance_x * -16.0, 10.0, 0.0))
+		self.velocity = Vector3(distance_x * -16.0, 10.0, 0.0)
 		world_reference.camera_reference.start_shake(Vector3(-0.1, -0.1, 0.0), Vector3(0.1, 0.1, 0.0), 0.15)
 
 	else:
@@ -139,6 +139,10 @@ func handle_punch():
 
 		var distance_x = (punchable_body.position - self.position).x
 		distance_x = distance_x / abs(distance_x)
+
+		if playing_alone:
+			punchable_body.single_player_punched(Vector3(distance_x * 8.0, 1.0, 0.0))
+			continue
 
 		# Notify the server's GameManager about this hit
 		var attacker_id = name.to_int()
@@ -201,10 +205,18 @@ func _process(_delta: float) -> void:
 
 
 @rpc("any_peer", "call_local", "reliable")
-func punched(knockback_strength: Vector3):
+func punched(knockback_strength: Vector3) -> bool:
 	if multiplayer.get_remote_sender_id() != 1:
 		# Must be sent from the server
-		return
-		
+		return false
+
 	print("Punched: %s"%[knockback_strength])
 	self.velocity = knockback_strength
+
+	return true
+
+func single_player_punched(knockback_strength: Vector3) -> bool:
+	print("Punched: %s"%[knockback_strength])
+	self.velocity = knockback_strength
+
+	return true
