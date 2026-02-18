@@ -5,6 +5,9 @@ var connection_url := "ws://192.168.1.202:8080"
 var is_connecting = false
 var request_sent = false
 
+func _ready():
+	$PlayerName.text = "Welcome " + Globals.player_name + "!"
+
 func quick_start():
 	# Send a websocket message to IP_ADDRESS requesting a new position
 	request_game_port()

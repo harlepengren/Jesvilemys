@@ -46,5 +46,16 @@ text = "Play Alone"
 stream = ExtResource("2_5gu6x")
 autoplay = true
 
+[node name="PlayerName" type="Label" parent="." unique_id=1191826756]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 68.0
+offset_right = 1153.0
+offset_bottom = 173.0
+theme_override_font_sizes/font_size = 32
+text = "Welcome [player name]!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="pressed" from="QuickJoinButton" to="." method="quick_start"]
 [connection signal="pressed" from="PlayAlone" to="." method="play_alone"]
