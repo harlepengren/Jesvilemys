@@ -55,5 +55,6 @@ func _on_timer_timeout():
 	elif current_game_state == State.END:
 		current_game_state = State.WAITING
 		get_node("/root/World").rpc("hide_game_over")
+		get_tree().paused = false
 		
 		
