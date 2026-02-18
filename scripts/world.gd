@@ -75,13 +75,14 @@ func spawn_simple_player(): # Used for basic testing
 func update_timer_display(time):
 	$CanvasLayer/TimeRemaining.text = "Time Remaining: " + "%02d" % [time]
 	
-@rpc("authority", "call_remote", "unreliable")
+@rpc("authority", "call_remote", "reliable")
 func show_game_over():
 	game_over_instance = game_over_scene.instantiate()
 	$CanvasLayer.add_child(game_over_instance)
 	print("Showing game over")
+	$CanvasLayer.print_tree_pretty()
 	
-@rpc("authority", "call_remote", "unreliable")
+@rpc("authority", "call_remote", "reliable")
 func hide_game_over():
 	print("hiding game over")
 	game_over_instance.queue_free()
