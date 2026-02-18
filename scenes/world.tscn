@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cbwn4f4d1nw57" path="res://scripts/server/multiplayer.gd" id="4_qfnet"]
 [ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="5_i7141"]
 [ext_resource type="PackedScene" uid="uid://s066fgmijkyf" path="res://scenes/player.tscn" id="6_4mrxx"]
+[ext_resource type="AudioStream" uid="uid://bkfyfajnwrtth" path="res://music/red_carpet.wav" id="7_i7141"]
 
 [node name="World" type="Node3D" unique_id=1512766956]
 script = ExtResource("1_rwgxs")
@@ -42,5 +43,9 @@ _spawnable_scenes = PackedStringArray("uid://s066fgmijkyf")
 spawn_path = NodePath("..")
 script = ExtResource("5_i7141")
 network_player = ExtResource("6_4mrxx")
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=350384074]
+stream = ExtResource("7_i7141")
+autoplay = true
 
 [connection signal="timeout" from="ItemTimer" to="." method="_on_item_timer_timeout"]
