@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://867yiv0tvhhp"]
+
+[ext_resource type="Script" uid="uid://da7rsqxbbin84" path="res://scripts/world.gd" id="1_rwgxs"]
+[ext_resource type="Script" uid="uid://bp8g2h4l8054y" path="res://scripts/camera.gd" id="2_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://cheygtahkx81t" path="res://scenes/title_board.tscn" id="3_4wyf3"]
+[ext_resource type="Script" uid="uid://cbwn4f4d1nw57" path="res://scripts/server/multiplayer.gd" id="4_qfnet"]
+[ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="5_i7141"]
+[ext_resource type="PackedScene" uid="uid://s066fgmijkyf" path="res://scenes/player.tscn" id="6_4mrxx"]
+
+[node name="World" type="Node3D" unique_id=1512766956]
+script = ExtResource("1_rwgxs")
+possible_item_souls = Array[String](["none", "explode"])
+current_item_souls = Dictionary[String, String]({
+"bomb": "explode",
+"star": "none"
+})
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1288977211]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+script = ExtResource("2_4wyf3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1205801892]
+transform = Transform3D(1, 0, 0, 0, 0.6427876, 0.7660444, 0, -0.7660444, 0.6427876, 0, 0, 0)
+
+[node name="ItemTimer" type="Timer" parent="." unique_id=295977189]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1951990238]
+
+[node name="TitleBoard" parent="CanvasLayer" unique_id=1288526576 instance=ExtResource("3_4wyf3")]
+
+[node name="TimeRemaining" type="Label" parent="CanvasLayer" unique_id=1556843330]
+offset_right = 445.0
+offset_bottom = 117.0
+theme_override_font_sizes/font_size = 32
+text = "time_remaining"
+
+[node name="Multiplayer" type="Node3D" parent="." unique_id=488225750]
+script = ExtResource("4_qfnet")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="." unique_id=610691718]
+_spawnable_scenes = PackedStringArray("uid://s066fgmijkyf")
+spawn_path = NodePath("..")
+script = ExtResource("5_i7141")
+network_player = ExtResource("6_4mrxx")
+
+[connection signal="timeout" from="ItemTimer" to="." method="_on_item_timer_timeout"]
