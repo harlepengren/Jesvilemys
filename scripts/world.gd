@@ -1,6 +1,6 @@
 extends Node3D
 
-@onready var multiplayer_node = $Multiplayer
+
 @export var possible_item_souls: Array[String]
 @export var current_item_souls: Dictionary[String, String]
 
@@ -20,8 +20,10 @@ extends Node3D
 # Load and instantiate the scene
 @onready var game_over_scene = preload("res://scenes/UI/game_over.tscn")
 var game_over_instance
+@onready var multiplayer_node = $Multiplayer
 
 var playing_alone = false
+
 
 func _enter_tree() -> void:
 	if Globals.port == -1:
@@ -38,7 +40,7 @@ func _ready() -> void:
 	
 	var port = Globals.get_port()
 	print("World loaded: starting on port ", port)
-	
+
 	if not Globals.is_server and not playing_alone:
 		print("World: starting client")
 		multiplayer_node.start_client(port)
@@ -46,9 +48,8 @@ func _ready() -> void:
 		print("Server: not starting client")
 	elif playing_alone:
 		print("Playing alone")
-		var player_scene = preload("res://scenes/player.tscn")
 		var player = player_scene.instantiate()
-		add_child(player)		
+		add_child(player)
 
 	var background = test_background_scene.instantiate()
 	self.add_child(background)
@@ -65,6 +66,9 @@ func _on_item_timer_timeout() -> void:
 		current_item_souls[item_type] = self.possible_item_souls.pick_random()
 
 	item_timer_reference.start(10)
+
+func _on_death_boundary_body_entered(body: Node3D) -> void:
+	body.position = Vector3(0.0, 10.0, 0.0)
 
 
 func spawn_simple_player(): # Used for basic testing
