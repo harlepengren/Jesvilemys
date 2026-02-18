@@ -17,6 +17,9 @@ extends Node3D
 
 @onready var camera_reference = $'Camera3D'
 
+# Load and instantiate the scene
+@onready var game_over_scene = preload("res://scenes/UI/game_over.tscn")
+var game_over_instance
 @onready var multiplayer_node = $Multiplayer
 
 var playing_alone = false
@@ -75,3 +78,20 @@ func spawn_simple_player(): # Used for basic testing
 @rpc("authority", "call_remote", "unreliable")
 func update_timer_display(time):
 	$CanvasLayer/TimeRemaining.text = "Time Remaining: " + "%02d" % [time]
+	
+@rpc("authority", "call_remote", "reliable")
+func show_game_over():
+	game_over_instance = game_over_scene.instantiate()
+	$CanvasLayer.add_child(game_over_instance)
+	print("Showing game over")
+	
+@rpc("authority", "call_remote", "reliable")
+func hide_game_over():
+	print("hiding game over")
+	game_over_instance.queue_free()
+	
+@rpc("authority","call_remote","unreliable")
+func update_time(time):
+	var time_remaining = $CanvasLayer/GameOver/new_game_label
+	
+	time_remaining.text = "Time to Next Game: %02d seconds"%[time]
