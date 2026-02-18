@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 	elif current_game_state == State.END:
 		time_since_last_update += delta
 		if time_since_last_update > 0.8:
-			get_node("/root/World/GameOver").rpc("update_time",timer.time_left)
+			get_node("/root/World").rpc("update_time",timer.time_left)
 			time_since_last_update = 0.0
 
 func _start_timer(time,always=false):
@@ -56,7 +56,7 @@ func _on_timer_timeout():
 	
 	if current_game_state == State.RUNNING:
 		current_game_state = State.END
-		get_tree().paused = true
+		#get_tree().paused = true
 		_start_timer(10,true)
 		get_node("/root/World").rpc("show_game_over")
 	elif current_game_state == State.END:

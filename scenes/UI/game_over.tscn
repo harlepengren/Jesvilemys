@@ -66,9 +66,10 @@ text = "Deaths:     5"
 
 [node name="new_game_label" type="Label" parent="." unique_id=376194241]
 layout_mode = 0
-offset_left = 408.0
+offset_left = 364.0
 offset_top = 528.0
-offset_right = 659.0
+offset_right = 800.0
 offset_bottom = 573.0
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 text = "new_game_start"
+horizontal_alignment = 1

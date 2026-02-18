@@ -80,10 +80,14 @@ func show_game_over():
 	game_over_instance = game_over_scene.instantiate()
 	$CanvasLayer.add_child(game_over_instance)
 	print("Showing game over")
-	$CanvasLayer.print_tree_pretty()
 	
 @rpc("authority", "call_remote", "reliable")
 func hide_game_over():
 	print("hiding game over")
 	game_over_instance.queue_free()
 	
+@rpc("authority","call_remote","unreliable")
+func update_time(time):
+	var time_remaining = $CanvasLayer/GameOver/new_game_label
+	
+	time_remaining.text = "Time to Next Game: %02d seconds"%[time]

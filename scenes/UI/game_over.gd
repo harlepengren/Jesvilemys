@@ -3,7 +3,6 @@ extends Control
 @onready var hits = $hits
 @onready var damage_received = $damage_received
 @onready var deaths = $deaths
-@onready var time_message = $new_game_label
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,6 +18,3 @@ func update_stats(num_hits,num_damage,num_deaths):
 	damage_received.text = "Damage Received: %s"%[num_damage]
 	deaths.text = "Deaths: %s"%[num_deaths]
 	
-@rpc("any_peer","call_remote","unreliable")
-func update_time(time):
-	time_message.text = "Time to Next Game: %s seconds"%[time]
