@@ -26,8 +26,13 @@ func _process(delta: float) -> void:
 	if current_game_state == State.RUNNING:
 		get_tree().paused = false
 		time_since_last_update += delta
-		if time_since_last_update > 1:
+		if time_since_last_update > 0.6:
 			get_node("/root/World").rpc("update_timer_display",timer.time_left)
+			time_since_last_update = 0.0
+	elif current_game_state == State.END:
+		time_since_last_update += delta
+		if time_since_last_update > 0.8:
+			get_node("/root/World/GameOver").rpc("update_time",timer.time_left)
 			time_since_last_update = 0.0
 
 func _start_timer(time,always=false):
@@ -66,12 +71,12 @@ func register_hit(attacker_id:int,victim_id:int):
 		
 	print("Hit: (Attacker: %s), (Victim:%s)"%[attacker_id,victim_id])
 	if not hit_stats.has(attacker_id):
-		hit_stats[attacker_id] = {"hits_given": 1, "hits_received": 0}
+		hit_stats[attacker_id] = {"hits_given": 1, "hits_received": 0, "deaths": 0}
 	else:
 		hit_stats[attacker_id]["hits_given"] += 1
 		
 	if not hit_stats.has(victim_id):
-		hit_stats[victim_id] = {"hits_given": 0, "hits_received": 1}
+		hit_stats[victim_id] = {"hits_given": 0, "hits_received": 1, "deaths":0}
 	else:
 		hit_stats[victim_id]["hits_received"] += 1
 		
@@ -80,5 +85,18 @@ func register_hit(attacker_id:int,victim_id:int):
 	var victim = get_node("/root/World/%d" % victim_id)
 	var direction = sign((victim.position - attacker.position).x)
 	victim.rpc_id(victim_id,"punched", Vector3(direction * 8.0, 1.0, 0.0))
+
+@rpc("any_peer","call_local","reliable")
+func get_stats():
+	if not Globals.is_server: return
 	
+	var id = multiplayer.get_remote_sender_id()
 	
+	if not hit_stats.has(id):
+		hit_stats[id] = {"hits_given": 0, "hits_received": 0, "deaths": 0}
+	
+	rpc_id(id, "receive_stats", hit_stats[id]["hits_given"],hit_stats[id]["hits_received"],hit_stats[id]["deaths"])
+
+@rpc("authority", "reliable")
+func receive_stats(hits_given: int, hits_received: int, deaths: int):
+	get_node("/root/World/CanvasLayer/GameOver").update_stats(hits_given, hits_received, deaths)
