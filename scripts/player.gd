@@ -137,7 +137,11 @@ func handle_punch():
 		var distance_x = (punchable_body.position - self.position).x
 		distance_x = distance_x / abs(distance_x)
 
-		punchable_body.punched(Vector3(distance_x * 8.0, 1.0, 0.0))
+		# Notify the server's GameManager about this hit
+		var attacker_id = name.to_int()
+		var victim_id = punchable_body.name.to_int()
+		get_node("/root/GameManager").rpc_id(1, "register_hit", attacker_id, victim_id)
+		rpc_id(victim_id,"punched",Vector3(distance_x * 8.0, 1.0, 0.0))
 
 	for punchable_area in punch_area_reference.get_overlapping_areas():
 		var area_parent = punchable_area.get_parent()
@@ -194,7 +198,8 @@ func _process(_delta: float) -> void:
 	handle_animation()
 
 
+@rpc("any_peer", "reliable")
 func punched(knockback_strength: Vector3) -> bool:
-	
+	print("Punched: %s"%[knockback_strength])
 	self.velocity = knockback_strength
 	return true

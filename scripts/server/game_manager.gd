@@ -5,6 +5,8 @@ var current_game_state:State
 var timer:Timer
 var time_since_last_update:float
 
+@onready var hit_stats:Dictionary = {}
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if Globals.is_server:
@@ -57,4 +59,20 @@ func _on_timer_timeout():
 		get_node("/root/World").rpc("hide_game_over")
 		get_tree().paused = false
 		
+@rpc("any_peer", "reliable")
+func register_hit(attacker_id:int,victim_id:int):
+	if not Globals.is_server:
+		return
 		
+	print("Hit: (Attacker: %s), (Victim:%s)"%[attacker_id,victim_id])
+	if not hit_stats.has(attacker_id):
+		hit_stats[attacker_id] = {"hits_given": 1, "hits_received": 0}
+	else:
+		hit_stats[attacker_id]["hits_given"] += 1
+		
+	if not hit_stats.has(victim_id):
+		hit_stats[victim_id] = {"hits_given": 0, "hits_received": 1}
+	else:
+		hit_stats[victim_id]["hits_received"] += 1
+	
+	
