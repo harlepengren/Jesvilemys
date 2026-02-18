@@ -14,7 +14,10 @@
 script = ExtResource("1_rwgxs")
 possible_item_souls = Array[String](["none", "explode"])
 current_item_souls = Dictionary[String, String]({
+"barrel": "none",
 "bomb": "explode",
+"lock": "none",
+"pipe": "none",
 "star": "none"
 })
 
