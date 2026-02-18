@@ -74,5 +74,11 @@ func register_hit(attacker_id:int,victim_id:int):
 		hit_stats[victim_id] = {"hits_given": 0, "hits_received": 1}
 	else:
 		hit_stats[victim_id]["hits_received"] += 1
+		
+	# Calculate knockback direction and tell the victim
+	var attacker = get_node("/root/World/%d" % attacker_id)
+	var victim = get_node("/root/World/%d" % victim_id)
+	var direction = sign((victim.position - attacker.position).x)
+	victim.rpc_id(victim_id,"punched", Vector3(direction * 8.0, 1.0, 0.0))
 	
 	
