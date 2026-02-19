@@ -11,6 +11,8 @@ extends CharacterBody3D
 @export var speed_decrease = 1.0
 @export var turn_speed = 1.0
 
+@export var modifier_faster_speed_amount = 200.0
+
 @export_category('Jumping')
 @export var jump_velocity = 4.8
 
@@ -48,8 +50,9 @@ var possible_skins = [
 	'VannesaModel'
 ]
 
-var modifiers = { # In seconds
-	'freeze': 0.0
+var modifiers = {
+	'freeze': 0.0,
+	'faster': 0.0
 }
  
 var playing_alone:bool = false
@@ -110,7 +113,7 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 
 		return
 
-	self.velocity.x = move_toward(self.velocity.x, direction * self.top_speed, self.speed_increase)
+	self.velocity.x = move_toward(self.velocity.x, direction * (self.top_speed + int(self.modifiers['faster'] != 0.0) * self.modifier_faster_speed_amount), self.speed_increase)
 	self.last_direction.x = direction
 
 	punch_area_reference.position.x = last_direction.x * 0.3
@@ -126,6 +129,9 @@ func use_item(item_soul, item_location: Vector3):
 
 	elif item_soul == 'freeze':
 		self.modifiers['freeze'] = 100.0
+
+	elif item_soul == 'faster':
+		self.modifiers['faster'] = 500.0
 
 	else:
 		world_reference.title_board_reference.change_colors(Color(0.9, 0.6, 0.7, 1.0), Color(0.5, 0.0, 0.2, 1.0))
@@ -194,6 +200,9 @@ func handle_modifiers() -> void:
 		else:
 			self.disable_movement = false
 			self.disable_jump = false
+
+	if self.modifiers['faster'] != 0.0:
+		self.modifiers['faster'] -= 1.0
 
 
 func handle_animation() -> void:
