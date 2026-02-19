@@ -50,6 +50,7 @@ func _process(_delta):
 	websocket.poll()
 	
 	var state = websocket.get_ready_state()
+	print("State: ", state, " Request sent: ", request_sent)
 	
 	match state:
 		WebSocketPeer.STATE_OPEN:
