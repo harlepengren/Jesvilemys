@@ -49,6 +49,12 @@ func _ready() -> void:
 	elif playing_alone:
 		print("Playing alone")
 		var player = player_scene.instantiate()
+
+		player.model_reference = player.get_node('CharlieModel')
+		player.animation_reference = player.model_reference.get_node('AnimationPlayer')
+
+		player.model_reference.show()
+
 		add_child(player)
 
 	var background = test_background_scene.instantiate()

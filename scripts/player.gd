@@ -241,10 +241,7 @@ func handle_modifiers() -> void:
 
 
 func handle_animation() -> void:
-	if multiplayer.is_server():
-		return
-
-	var is_authority = is_multiplayer_authority()
+	var is_authority = is_multiplayer_authority() or playing_alone
 
 	var anim_punch  = animation_states.punch   if is_authority else synced_anim_punch
 	var anim_floor  = animation_states.on_floor if is_authority else synced_anim_on_floor
@@ -274,7 +271,7 @@ func handle_animation() -> void:
 	animation_reference.play('idle')
 
 func _process(_delta: float) -> void:
-	if multiplayer.is_server():
+	if multiplayer.is_server() and !playing_alone:
 		return
 	if model_reference:
 		handle_animation()
