@@ -11,6 +11,7 @@ var peer: ENetMultiplayerPeer
 func start_client(port:int) -> void:
 	print("starting the client . . .")
 	peer = ENetMultiplayerPeer.new()
+	print("attempting to connect on: " + Globals.get_ip_addr() + ":"+ str(port))
 	var error = peer.create_client(Globals.get_ip_addr(), port)
 	
 	if error != OK:

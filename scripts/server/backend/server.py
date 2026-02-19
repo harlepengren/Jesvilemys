@@ -9,7 +9,7 @@ import json
 class JServerInstance:
     def __init__(self, id: int):
         self.id = id
-        self.process, self.port = launch_instance()
+        self.process, self.ip_addr,self.port = launch_instance()
         self.status = 'running'
         self.clients = []
 
@@ -56,11 +56,11 @@ class JServer:
         '''Finds an instance with availability and returns its port.'''
         for instance in self.instances:
             if instance.get_num_players() < 4: # Assuming max 4 players per instance
-                return instance.port
+                return (instance.ip_addr, instance.port)
         # If no instance has availability, create a new one
         new_instance_id = self.create_instance()
         new_instance = self.get_instance(new_instance_id)
-        return new_instance.port
+        return (new_instance.ip_addr, new_instance.port)
     
 
 def launch_instance():
@@ -72,7 +72,7 @@ def launch_instance():
     scene_path = "res://scenes/world.tscn"
 
     # Get the ip address
-    with open("config.json") as f:
+    with open("../config.json") as f:
         config = json.load(f)
 
     SERVER_IP = config["server_ip"]
@@ -95,7 +95,7 @@ def launch_instance():
         f"--port={port}",
         "--server"
     ])
-    return (process, port)
+    return (process, SERVER_IP, port)
 
 def is_port_in_use(host: str, port: int) -> bool:
     """Check if a TCP port on a given host is in use."""
