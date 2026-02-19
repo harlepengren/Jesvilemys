@@ -12,13 +12,13 @@
 
 [node name="World" type="Node3D" unique_id=1512766956]
 script = ExtResource("1_rwgxs")
-possible_item_souls = Array[String](["none", "explode"])
+possible_item_souls = Array[String](["none", "explode", "freeze", "faster"])
 current_item_souls = Dictionary[String, String]({
 "barrel": "none",
 "bomb": "explode",
-"lock": "none",
+"lock": "freeze",
 "pipe": "none",
-"star": "none"
+"star": "faster"
 })
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1288977211]

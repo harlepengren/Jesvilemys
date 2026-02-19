@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b2mp33pir3s62"]
+
+[ext_resource type="PackedScene" uid="uid://m80ko6mmq3yi" path="res://models/platforms/brick.glb" id="1_vdt4n"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pob5f"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Brick" unique_id=1607941064 instance=ExtResource("1_vdt4n")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1" unique_id=1131278538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.097500004, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0" unique_id=472952009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+shape = SubResource("BoxShape3D_pob5f")

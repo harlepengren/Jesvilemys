@@ -11,6 +11,8 @@ extends CharacterBody3D
 @export var speed_decrease = 1.0
 @export var turn_speed = 1.0
 
+@export var modifier_faster_speed_amount = 200.0
+
 @export_category('Jumping')
 @export var jump_velocity = 4.8
 
@@ -54,6 +56,10 @@ var synced_skin_name: String = ''
 @export var synced_anim_on_floor: bool = true
 @export var synced_anim_walking: bool = false
 @export var synced_anim_punch: int = 0
+var modifiers = {
+	'freeze': 0.0,
+	'faster': 0.0
+}
  
 var playing_alone:bool = false
 
@@ -136,7 +142,7 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 
 		return
 
-	self.velocity.x = move_toward(self.velocity.x, direction * self.top_speed, self.speed_increase)
+	self.velocity.x = move_toward(self.velocity.x, direction * (self.top_speed + int(self.modifiers['faster'] != 0.0) * self.modifier_faster_speed_amount), self.speed_increase)
 	self.last_direction.x = direction
 
 	punch_area_reference.position.x = last_direction.x * 0.3
@@ -147,8 +153,14 @@ func use_item(item_soul, item_location: Vector3):
 		var distance_x = (item_location - self.position).x
 		distance_x = distance_x / abs(distance_x)
 
-		self.punched(Vector3(distance_x * -16.0, 10.0, 0.0))
+		self.velocity = Vector3(distance_x * -16.0, 10.0, 0.0)
 		world_reference.camera_reference.start_shake(Vector3(-0.1, -0.1, 0.0), Vector3(0.1, 0.1, 0.0), 0.15)
+
+	elif item_soul == 'freeze':
+		self.modifiers['freeze'] = 100.0
+
+	elif item_soul == 'faster':
+		self.modifiers['faster'] = 500.0
 
 	else:
 		world_reference.title_board_reference.change_colors(Color(0.9, 0.6, 0.7, 1.0), Color(0.5, 0.0, 0.2, 1.0))
@@ -169,6 +181,10 @@ func handle_punch():
 
 		var distance_x = (punchable_body.position - self.position).x
 		distance_x = distance_x / abs(distance_x)
+
+		if playing_alone:
+			punchable_body.single_player_punched(Vector3(distance_x * 8.0, 1.0, 0.0))
+			continue
 
 		# Notify the server's GameManager about this hit
 		var attacker_id = name.to_int()
@@ -209,6 +225,21 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 
+func handle_modifiers() -> void:
+	if self.modifiers['freeze'] != 0.0:
+		self.modifiers['freeze'] -= 1.0
+
+		if self.modifiers['freeze'] != 0.0:
+			self.disable_movement = true
+			self.disable_jump = true
+		else:
+			self.disable_movement = false
+			self.disable_jump = false
+
+	if self.modifiers['faster'] != 0.0:
+		self.modifiers['faster'] -= 1.0
+
+
 func handle_animation() -> void:
 	if multiplayer.is_server():
 		return
@@ -247,13 +278,23 @@ func _process(_delta: float) -> void:
 		return
 	if model_reference:
 		handle_animation()
+	handle_modifiers()
+	handle_animation()
 
 
 @rpc("any_peer", "call_local", "reliable")
-func punched(knockback_strength: Vector3):
+func punched(knockback_strength: Vector3) -> bool:
 	if multiplayer.get_remote_sender_id() != 1:
 		# Must be sent from the server
-		return
-		
+		return false
+
 	print("Punched: %s"%[knockback_strength])
 	self.velocity = knockback_strength
+
+	return true
+
+func single_player_punched(knockback_strength: Vector3) -> bool:
+	print("Punched: %s"%[knockback_strength])
+	self.velocity = knockback_strength
+
+	return true

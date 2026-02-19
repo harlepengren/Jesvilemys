@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://b6k1xgavuqygw"]
+
+[ext_resource type="PackedScene" uid="uid://h520ab4cxndn" path="res://scenes/platforms/block_snow_long.tscn" id="1_l4ai1"]
+[ext_resource type="PackedScene" uid="uid://7x4impg333rl" path="res://scenes/platforms/platform.tscn" id="2_h5eg2"]
+[ext_resource type="PackedScene" uid="uid://b64jfjshiopxf" path="res://scenes/items/star.tscn" id="3_ejm11"]
+[ext_resource type="PackedScene" uid="uid://4xh6thd8ogbu" path="res://scenes/items/bomb.tscn" id="4_w4xik"]
+[ext_resource type="PackedScene" uid="uid://6ttviq510rvi" path="res://scenes/items/barrel.tscn" id="5_82ost"]
+[ext_resource type="PackedScene" uid="uid://1ts3ee4xsmjf" path="res://scenes/items/pipe.tscn" id="6_vqyxh"]
+[ext_resource type="PackedScene" uid="uid://is41p1mygik0" path="res://scenes/items/lock.tscn" id="7_nn0oc"]
+[ext_resource type="PackedScene" uid="uid://b2mp33pir3s62" path="res://scenes/platforms/brick.tscn" id="8_h5eg2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2s7ue"]
+size = Vector3(8.4, 0.2, 1)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_44c15"]
+data = PackedVector3Array(-4.2, 0.099999994, 0.5, 4.2, 0.099999994, 0.5, -4.2, -0.099999994, 0.5, 4.2, 0.099999994, 0.5, 4.2, -0.099999994, 0.5, -4.2, -0.099999994, 0.5, 4.2, 0.099999994, -0.5, -4.2, 0.099999994, -0.5, 4.2, -0.099999994, -0.5, -4.2, 0.099999994, -0.5, -4.2, -0.099999994, -0.5, 4.2, -0.099999994, -0.5, 4.2, 0.099999994, 0.5, 4.2, 0.099999994, -0.5, 4.2, -0.099999994, 0.5, 4.2, 0.099999994, -0.5, 4.2, -0.099999994, -0.5, 4.2, -0.099999994, 0.5, -4.2, 0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, -0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, -0.099999994, 0.5, -4.2, -0.099999994, -0.5, 4.2, 0.099999994, 0.5, -4.2, 0.099999994, 0.5, 4.2, 0.099999994, -0.5, -4.2, 0.099999994, 0.5, -4.2, 0.099999994, -0.5, 4.2, 0.099999994, -0.5, -4.2, -0.099999994, 0.5, 4.2, -0.099999994, 0.5, -4.2, -0.099999994, -0.5, 4.2, -0.099999994, 0.5, 4.2, -0.099999994, -0.5, -4.2, -0.099999994, -0.5)
+
+[node name="Stage" type="Node3D" unique_id=1708005803]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1576285806]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+visible = false
+mesh = SubResource("BoxMesh_2s7ue")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=1374914195]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=1898354059]
+shape = SubResource("ConcavePolygonShape3D_44c15")
+
+[node name="BlockSnowLong1" parent="." unique_id=304920218 instance=ExtResource("1_l4ai1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -2.9, 0)
+
+[node name="BlockSnowLong2" parent="." unique_id=1506371432 instance=ExtResource("1_l4ai1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99999976, -2.9, 0)
+
+[node name="BlockSnowLong3" parent="." unique_id=1276822485 instance=ExtResource("1_l4ai1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9999999, -2.9, 0)
+
+[node name="BlockSnowLong4" parent="." unique_id=842855828 instance=ExtResource("1_l4ai1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0000005, -2.9, 0)
+
+[node name="PlatformBottomLeft2" parent="." unique_id=1731052064 instance=ExtResource("2_h5eg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -1.2, 0)
+
+[node name="PlatformBottomRight2" parent="." unique_id=883471595 instance=ExtResource("2_h5eg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1.2, 0)
+
+[node name="PlatformTopLeft1" parent="." unique_id=1764192078 instance=ExtResource("2_h5eg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0.9, 0)
+
+[node name="PlatformTopLeft2" parent="." unique_id=748353692 instance=ExtResource("2_h5eg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, -0.1, 0)
+
+[node name="PlatformTopRight1" parent="." unique_id=1050904979 instance=ExtResource("2_h5eg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0.9, 0)
+
+[node name="PlatformTopRight2" parent="." unique_id=1099414694 instance=ExtResource("2_h5eg2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -0.1, 0)
+
+[node name="Star" parent="." unique_id=704528460 instance=ExtResource("3_ejm11")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.70000005, 0)
+
+[node name="Bomb" parent="." unique_id=706725271 instance=ExtResource("4_w4xik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -0.7, 0)
+
+[node name="Barrel" parent="." unique_id=1542305400 instance=ExtResource("5_82ost")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.3, 0)
+
+[node name="Pipe" parent="." unique_id=990937956 instance=ExtResource("6_vqyxh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.3, 0)
+
+[node name="Lock" parent="." unique_id=243407557 instance=ExtResource("7_nn0oc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -1.7, 0)
+
+[node name="BrickBottomLeft" parent="." unique_id=1607941064 instance=ExtResource("8_h5eg2")]
+transform = Transform3D(0.98480785, 0, -0.1736482, 0, 1, 0, 0.1736482, 0, 0.98480785, -0.9, -1.9, 0)
+
+[node name="BrickBottomCenter" parent="." unique_id=99003649 instance=ExtResource("8_h5eg2")]
+transform = Transform3D(0.9961947, 0, 0.08715574, 0, 1, 0, -0.08715574, 0, 0.9961947, 0, -1.9, 0)
+
+[node name="BrickTopCenter" parent="." unique_id=71541811 instance=ExtResource("8_h5eg2")]
+transform = Transform3D(0.7071068, 0, -0.7071069, 0, 1, 0, 0.7071069, 0, 0.7071068, 0.2, -1.4, 0)
+
+[node name="BrickBottomRight" parent="." unique_id=823702314 instance=ExtResource("8_h5eg2")]
+transform = Transform3D(0.9396926, 0, -0.34202012, 0, 1, 0, 0.34202012, 0, 0.9396926, 0.6, -1.9, 0)
