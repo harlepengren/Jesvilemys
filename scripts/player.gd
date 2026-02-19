@@ -85,6 +85,8 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		var chosen = possible_skins.pick_random()
 		set_skin.rpc(chosen)
+	
+	get_node("/root/GameManager").rpc("register_name",Globals.player_name)
 
 func _on_new_peer_connected(new_peer_id: int) -> void:
 	if synced_skin_name == '': return

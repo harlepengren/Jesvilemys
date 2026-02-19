@@ -46,4 +46,4 @@ func generate_player_name() -> String:
 	while word1 == word2:
 		word2 = wordlist.pick_random().capitalize()
 	
-	return word1 + word2  # e.g. "AbacusAbbey"
+	return word1 + word2

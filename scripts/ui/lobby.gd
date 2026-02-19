@@ -87,5 +87,6 @@ func start_game(port: int):
 	# Your game server setup code here
 	print("Starting game on server port: ", port)
 	Globals.set_port(port)
+	GameManager.rpc_id(1, "register_name", Globals.player_name)
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 	
