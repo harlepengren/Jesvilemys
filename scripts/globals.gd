@@ -1,7 +1,8 @@
 extends Node
 
 # used to store 
-var port
+var port:int
+var ip_addr:String
 var is_server = false
 var wordlist
 var player_name
@@ -12,9 +13,15 @@ func _ready() -> void:
 
 func set_port(port_num:int):
 	port = port_num
+
+func set_ip(ip_num:String):
+	ip_addr = ip_num
 	
 func get_port() -> int:
 	return port
+	
+func get_ip_addr() -> String:
+	return ip_addr
 	
 func load_wordlist() -> Array[String]:
 	var words: Array[String] = []

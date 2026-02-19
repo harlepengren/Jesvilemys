@@ -4,6 +4,7 @@ import subprocess
 import os
 import socket
 import random
+import json
 
 class JServerInstance:
     def __init__(self, id: int):
@@ -70,12 +71,18 @@ def launch_instance():
     # Path to the scene you want to load (relative to project root)
     scene_path = "res://scenes/world.tscn"
 
+    # Get the ip address
+    with open("config.json") as f:
+        config = json.load(f)
+
+    SERVER_IP = config["server_ip"]
+
     # Find a random open port
     port = random.randint(50000, 60000)
-    while is_port_in_use("192.168.1.202", port):
+    while is_port_in_use(SERVER_IP, port):
         port = random.randint(50000, 60000)
 
-    print(f"Launching: {godot_path} --headless --path {instance_path} {scene_path} -- --ip_addr=")
+    print(f"Launching: {godot_path} --headless --path {instance_path} {scene_path} -- --ip_addr={SERVER_IP}")
 
     # Launch headless Godot
     process = subprocess.Popen([
@@ -84,7 +91,7 @@ def launch_instance():
         "--path", instance_path, # Specify project path
         scene_path,               # Scene to load
         "--",
-        "--ip_addr=192.168.1.202",
+        f"--ip_addr={SERVER_IP}",
         f"--port={port}",
         "--server"
     ])

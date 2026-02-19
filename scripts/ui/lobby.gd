@@ -1,12 +1,21 @@
 extends Control
 
 var websocket := WebSocketPeer.new()
-var connection_url := "ws://192.168.1.202:8080"
+var connection_url
 var is_connecting = false
 var request_sent = false
 
 func _ready():
 	$PlayerName.text = "Welcome " + Globals.player_name + "!"
+	
+	var connection_details = load_config()
+	
+	if connection_details.has("server_ip") and connection_details.has("signal_server_port"):
+		var server_ip = connection_details["server_ip"]
+		var server_port = connection_details["signal_server_port"]
+	
+		connection_url = "ws://"+server_ip+":"+server_port
+	print("Server info: " + connection_url)
 
 func quick_start():
 	# Send a websocket message to IP_ADDRESS requesting a new position
@@ -14,7 +23,12 @@ func quick_start():
 	
 func play_alone():
 	start_game(-1)
-	
+
+func load_config() -> Dictionary:
+	var file = FileAccess.open("res://scripts/server/config.json", FileAccess.READ)
+	var json = JSON.new()
+	json.parse(file.get_as_text())
+	return json.data
 
 func request_game_port():
 	var err = websocket.connect_to_url(connection_url)

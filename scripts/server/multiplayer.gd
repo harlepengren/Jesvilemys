@@ -1,8 +1,5 @@
 extends Node
 
-const IP_ADDRESS: String = "192.168.1.202"
-#const PORT:int = 8090
-
 var peer: ENetMultiplayerPeer
 
 #func start_server() -> void:
@@ -14,7 +11,7 @@ var peer: ENetMultiplayerPeer
 func start_client(port:int) -> void:
 	print("starting the client . . .")
 	peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(IP_ADDRESS, port)
+	var error = peer.create_client(Globals.get_ip_addr(), port)
 	
 	if error != OK:
 		printerr("Failure connecting:",error)
