@@ -278,8 +278,7 @@ func _process(_delta: float) -> void:
 		return
 	if model_reference:
 		handle_animation()
-	handle_modifiers()
-	handle_animation()
+		handle_modifiers()
 
 
 @rpc("any_peer", "call_local", "reliable")
