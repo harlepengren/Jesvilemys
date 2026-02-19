@@ -7,6 +7,7 @@ var current_level
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("scene manager")
 	if not Globals.is_server:
 		return
 		
@@ -22,12 +23,15 @@ func _ready() -> void:
 			level_ids.append(item["level_id"])
 			
 	# Choose a random level
-	SceneManager.set_current_level(SceneManager.choose_random_level())
+	rpc("set_current_level",SceneManager.choose_random_level())
+	$World.load_scene.rpc()
 			
 func get_current_level():
 	return current_level
 	
+@rpc("authority","call_remote","reliable")
 func set_current_level(level_id):
+	print("Scene Selected: ", level_id)
 	if level_ids.has(level_id):
 		for item in level_info:
 			if item["level_id"] == level_id:

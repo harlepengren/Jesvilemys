@@ -28,15 +28,7 @@ func _enter_tree() -> void:
 		$Multiplayer.queue_free()
 		$MultiplayerSpawner.queue_free()
 	
-func _ready() -> void:
-	current_level_info = SceneManager.get_current_level()
-	var current_stage = load(current_level_info["level_stage"])
-	var stage = current_stage.instantiate()
-	self.add_child(stage)
-	var current_background = load(current_level_info["level_background"])
-	var background = current_background.instantiate()
-	self.add_child(background)
-	
+func _ready() -> void:	
 	var port = Globals.get_port()
 	print("World loaded: starting on port ", port)
 
@@ -59,6 +51,16 @@ func _ready() -> void:
 	item_timer_reference.start(10)
 
 	#self.spawn_simple_player() # Remove for multiplayer
+
+@rpc("authority","call_remote","reliable")
+func load_scene():
+	current_level_info = SceneManager.get_current_level()
+	var current_stage = load(current_level_info["level_stage"])
+	var stage = current_stage.instantiate()
+	self.add_child(stage)
+	var current_background = load(current_level_info["level_background"])
+	var background = current_background.instantiate()
+	self.add_child(background)
 
 func _on_item_timer_timeout() -> void:
 	title_board_reference.change_colors(Color(0.8, 0.741, 0.98), Color(0.29, 0.0, 0.74))
