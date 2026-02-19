@@ -1,20 +1,36 @@
 extends Control
 
 var websocket := WebSocketPeer.new()
-var connection_url := "ws://192.168.1.202:8080"
+var connection_url
 var is_connecting = false
 var request_sent = false
 
 func _ready():
 	$PlayerName.text = "Welcome " + Globals.player_name + "!"
+	
+	var connection_details = load_config()
+	
+	if connection_details.has("server_ip") and connection_details.has("signal_server_port"):
+		var server_ip = connection_details["server_ip"]
+		var server_port = connection_details["signal_server_port"]
+	
+		connection_url = "ws://"+server_ip+":"+str(server_port)
+	print("Server info: " + connection_url)
 
 func quick_start():
 	# Send a websocket message to IP_ADDRESS requesting a new position
 	request_game_port()
 	
 func play_alone():
-	start_game(-1)
-	
+	Globals.set_port(-1)
+	start_game()
+
+func load_config() -> Dictionary:
+	var file = FileAccess.open("res://scripts/server/config.json", FileAccess.READ)
+	var json = JSON.new()
+	json.parse(file.get_as_text())
+	print(json.data)
+	return json.data
 
 func request_game_port():
 	var err = websocket.connect_to_url(connection_url)
@@ -69,24 +85,34 @@ func handle_port_response(response: String):
 	
 	if parse_result == OK:
 		var data = json.data
+		print(data)
 		if data.has("port"):
-			var assigned_port = data["port"]
+			var assigned_port = int(data["port"])
 			print("Received port: ", assigned_port)
 			
-			# Close the websocket
-			websocket.close(1000, "Port received")
+			Globals.set_port(assigned_port)
+		else:
+			print("Invalid port")
 			
-			# Use the port for your game
-			start_game(assigned_port)
+		if data.has("ip_addr"):
+			Globals.set_ip(data["ip_addr"])
+		else:
+			print("Invalid IP address")
+		
+		# Close the websocket
+		websocket.close(1000, "Port received")
+			
+		# Use the port for your game
+		start_game()
 			
 
 	else:
 		push_error("Failed to parse response: " + response)
 
-func start_game(port: int):
+func start_game():
+	var port = Globals.get_port()
 	# Your game server setup code here
 	print("Starting game on server port: ", port)
-	Globals.set_port(port)
 	GameManager.rpc_id(1, "register_name", Globals.player_name)
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
 	

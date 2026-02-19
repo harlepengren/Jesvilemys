@@ -8,10 +8,11 @@ class PortAllocator:
     def __init__(self):
         self.jserver = server.init_server()  # Initialize the JServer instance
     
-    def allocate_port(self) -> int:
-        port = self.jserver.quick_launch()  # Ensure we have an instance with an allocated port
+    def allocate_port(self):
+        '''Return port and IP address of an available server instance.'''
+        ip_addr, port = self.jserver.quick_launch()  # Ensure we have an instance with an allocated port
         
-        return port
+        return (ip_addr, port)
 
 # Global port allocator
 port_allocator = PortAllocator()
@@ -36,11 +37,12 @@ async def handle_client(websocket):
                 
                 if action == "request_port":
                     # Allocate a port
-                    allocated_port = port_allocator.allocate_port()
+                    allocated_ip, allocated_port = port_allocator.allocate_port()
                     
                     # Send response
                     response = {
                         "status": "success",
+                        "ip_addr": allocated_ip,
                         "port": allocated_port
                     }
                     await websocket.send(json.dumps(response))
