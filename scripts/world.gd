@@ -1,14 +1,7 @@
 extends Node3D
 
-
 @export var possible_item_souls: Array[String]
 @export var current_item_souls: Dictionary[String, String]
-
-@onready var test_stage_scene = preload('res://scenes/stages/noodle_plains.tscn')
-@onready var test_background_scene = preload('res://scenes/backgrounds/noodle_plains.tscn')
-
-@onready var snowy_tops_stage_scene = preload('res://scenes/stages/snowy_tops.tscn')
-@onready var snowy_tops_background_scene = preload('res://scenes/backgrounds/snowy_tops.tscn')
 
 @onready var player_scene = preload('res://scenes/player.tscn')
 
@@ -24,6 +17,7 @@ var game_over_instance
 
 var playing_alone = false
 
+var current_level_info
 
 func _enter_tree() -> void:
 	if Globals.port == -1:
@@ -35,8 +29,13 @@ func _enter_tree() -> void:
 		$MultiplayerSpawner.queue_free()
 	
 func _ready() -> void:
-	var stage = test_stage_scene.instantiate()
+	current_level_info = SceneManager.get_current_level()
+	var current_stage = load(current_level_info["level_stage"])
+	var stage = current_stage.instantiate()
 	self.add_child(stage)
+	var current_background = load(current_level_info["level_background"])
+	var background = current_background.instantiate()
+	self.add_child(background)
 	
 	var port = Globals.get_port()
 	print("World loaded: starting on port ", port)
@@ -56,9 +55,6 @@ func _ready() -> void:
 		player.model_reference.show()
 
 		add_child(player)
-
-	var background = test_background_scene.instantiate()
-	self.add_child(background)
 
 	item_timer_reference.start(10)
 

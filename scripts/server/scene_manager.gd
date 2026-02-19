@@ -1,0 +1,38 @@
+extends Node
+
+var level_info
+var level_ids:Array =[]
+
+var current_level
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	if not Globals.is_server:
+		return
+		
+	var file = FileAccess.open("res://scenes/levels.json", FileAccess.READ)
+	var json = JSON.new()
+	json.parse(file.get_as_text())
+	file.close()
+		
+	level_info = json.data["levels"]
+	
+	for item in level_info:
+		if item.has("level_id"):
+			level_ids.append(item["level_id"])
+			
+	# Choose a random level
+	SceneManager.set_current_level(SceneManager.choose_random_level())
+			
+func get_current_level():
+	return current_level
+	
+func set_current_level(level_id):
+	if level_ids.has(level_id):
+		for item in level_info:
+			if item["level_id"] == level_id:
+				current_level = item
+				break
+				
+func choose_random_level():
+	return level_ids.pick_random()

@@ -1,0 +1,20 @@
+{
+  "levels": [
+    {
+      "level_id": "noodle_plains",
+      "level_name": "Noodle Plains",
+      "level_background": "res://scenes/backgrounds/noodle_plains.tscn",
+      "level_stage": "res://scenes/stages/noodle_plains.tscn",
+      "level_description": null,
+      "level_thumbnail": null
+    },
+    {
+      "level_id": "snowy_tops",
+      "level_name": "Snowy Tops",
+      "level_background": "res://scenes/backgrounds/snowy_tops.tscn",
+      "level_stage": "res://scenes/stages/snowy_tops.tscn",
+      "level_description": null,
+      "level_thumbnail": null
+    }
+  ]
+}

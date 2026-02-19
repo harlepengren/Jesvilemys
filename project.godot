@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 Server="*uid://br4g5uv6ida7r"
 Globals="*uid://ch2gjnmg1sq27"
 GameManager="*uid://dpe3dsdogv7fh"
+SceneManager="*uid://be1sqtkan3jyb"
 
 [display]
 
