@@ -7,6 +7,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 103.0
+offset_top = -48.0
+offset_right = 103.0
+offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_njkqv")
@@ -21,46 +25,57 @@ color = Color(0.7153372, 0.51033556, 0.3931982, 1)
 
 [node name="game_over_header" type="Label" parent="." unique_id=1847291981]
 layout_mode = 0
-offset_left = 419.0
+offset_left = 359.0
 offset_top = 148.0
-offset_right = 636.0
+offset_right = 804.0
 offset_bottom = 203.0
 theme_override_font_sizes/font_size = 40
 text = "Game Over"
+horizontal_alignment = 1
+
+[node name="winner" type="Label" parent="." unique_id=1547981768]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 203.0
+offset_right = 802.0
+offset_bottom = 258.0
+theme_override_font_sizes/font_size = 40
+text = "Winner"
+horizontal_alignment = 1
 
 [node name="key_stats_header" type="Label" parent="." unique_id=1806606224]
 layout_mode = 0
 offset_left = 370.0
-offset_top = 221.0
+offset_top = 305.0
 offset_right = 483.0
-offset_bottom = 255.0
+offset_bottom = 339.0
 theme_override_font_sizes/font_size = 24
 text = "Key Stats:"
 
 [node name="hits" type="Label" parent="." unique_id=845814919]
 layout_mode = 0
 offset_left = 431.0
-offset_top = 266.0
-offset_right = 483.0
-offset_bottom = 300.0
+offset_top = 350.0
+offset_right = 530.0
+offset_bottom = 384.0
 theme_override_font_sizes/font_size = 24
 text = "Hits: 532"
 
 [node name="damage_received" type="Label" parent="." unique_id=716547281]
 layout_mode = 0
 offset_left = 432.0
-offset_top = 303.0
+offset_top = 387.0
 offset_right = 531.0
-offset_bottom = 337.0
+offset_bottom = 421.0
 theme_override_font_sizes/font_size = 24
 text = "Hits: 532"
 
 [node name="deaths" type="Label" parent="." unique_id=1266337957]
 layout_mode = 0
 offset_left = 434.0
-offset_top = 341.0
+offset_top = 425.0
 offset_right = 566.0
-offset_bottom = 375.0
+offset_bottom = 459.0
 theme_override_font_sizes/font_size = 24
 text = "Deaths:     5"
 

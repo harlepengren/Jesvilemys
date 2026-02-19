@@ -50,6 +50,12 @@ var possible_skins = [
 	'VannesaModel'
 ]
 
+# Synced display state - same model across multiplayer
+var synced_skin_name: String = ''
+@export var synced_model_rotation_y: float = 0.0
+@export var synced_anim_on_floor: bool = true
+@export var synced_anim_walking: bool = false
+@export var synced_anim_punch: int = 0
 var modifiers = {
 	'freeze': 0.0,
 	'faster': 0.0
@@ -65,12 +71,32 @@ func change_character_skin(skin_name: String):
 
 	model_reference.show()
 
+@rpc('any_peer', 'call_local', 'reliable')
+func set_skin(skin_name: String):
+	# Only accept this call from the server or from the node's own authority
+	var sender = multiplayer.get_remote_sender_id()
+	if sender != 1 and sender != name.to_int(): return
+	
+	synced_skin_name = skin_name
+	if not multiplayer.is_server():
+		change_character_skin(skin_name)
 
 func _ready() -> void:
-	change_character_skin(self.possible_skins.pick_random())
 	if Globals.port == -1:
 		playing_alone = true
+	elif multiplayer.is_server():
+		multiplayer.peer_connected.connect(_on_new_peer_connected)
+		return
 
+	if is_multiplayer_authority():
+		var chosen = possible_skins.pick_random()
+		set_skin.rpc(chosen)
+	
+	get_node("/root/GameManager").rpc("register_name",Globals.player_name)
+
+func _on_new_peer_connected(new_peer_id: int) -> void:
+	if synced_skin_name == '': return
+	set_skin.rpc_id(new_peer_id, synced_skin_name)
 
 func handle_gravity(delta: float) -> void:
 	var on_floor = self.is_on_floor()
@@ -98,6 +124,9 @@ func handle_jump() -> void:
 	self.air_time = self.max_air_time + 1
 
 func handle_movement() -> void: # Get the input direction and handle the movement/deceleration	
+	if not model_reference: return
+	if not speed_decrease: return
+	
 	var direction := Input.get_axis('player_move_left', 'player_move_right')
 	if !direction or self.disable_movement:
 		self.animation_states.walking = false
@@ -186,6 +215,12 @@ func _physics_process(delta: float) -> void:
 
 	self.move_and_slide()
 	
+	# Sync animation data
+	synced_model_rotation_y = model_reference.rotation.y if model_reference else 0.0
+	synced_anim_on_floor = animation_states.on_floor
+	synced_anim_walking = animation_states.walking
+	synced_anim_punch = animation_states.punch
+	
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
@@ -206,29 +241,43 @@ func handle_modifiers() -> void:
 
 
 func handle_animation() -> void:
-	if not playing_alone and multiplayer.is_server():
-		# No need for animation on the server
+	if multiplayer.is_server():
 		return
-	
-	if self.animation_states.punch:
-		if self.last_direction.x == -1:
+
+	var is_authority = is_multiplayer_authority()
+
+	var anim_punch  = animation_states.punch   if is_authority else synced_anim_punch
+	var anim_floor  = animation_states.on_floor if is_authority else synced_anim_on_floor
+	var anim_walk   = animation_states.walking  if is_authority else synced_anim_walking
+	var model_rot_y = (model_reference.rotation.y if model_reference else 0.0) if is_authority else synced_model_rotation_y
+
+	# Apply synced rotation to the remote model
+	if not is_authority and model_reference:
+		model_reference.rotation.y = model_rot_y
+
+	if anim_punch:
+		if model_rot_y < 0:
 			animation_reference.play('attack-melee-left')
 			return
-		if self.last_direction.x == 1:
+		if model_rot_y > 0:
 			animation_reference.play('attack-melee-right')
 			return
 
-	if !self.animation_states.on_floor:
+	if !anim_floor:
 		animation_reference.play('jump')
 		return
 
-	if self.animation_states.walking:
+	if anim_walk:
 		animation_reference.play('sprint')
 		return
 
 	animation_reference.play('idle')
 
 func _process(_delta: float) -> void:
+	if multiplayer.is_server():
+		return
+	if model_reference:
+		handle_animation()
 	handle_modifiers()
 	handle_animation()
 
