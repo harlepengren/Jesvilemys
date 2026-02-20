@@ -66,6 +66,12 @@ func _on_timer_timeout():
 		get_node("/root/World").rpc("hide_game_over")
 		get_tree().paused = false
 		
+		# Select and load a new level
+		if Globals.is_server:
+			get_node("/root/SceneManager").select_new_level()
+			
+		
+		
 func calculate_score():
 	if not Globals.is_server:
 		return
@@ -121,7 +127,6 @@ func register_hit(attacker_id:int,victim_id:int):
 @rpc("any_peer", "reliable")
 func player_died():
 	var player_id = multiplayer.get_remote_sender_id()
-	print("player died: ", player_id)
 	if not hit_stats.has(player_id):
 		hit_stats[player_id] = {"hits_given": 0, "hits_received": 0, "deaths": 1}
 	hit_stats[player_id]["deaths"] += 1
