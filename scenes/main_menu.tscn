@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://dmxg3f5my6rrw"]
+
+[ext_resource type="Script" uid="uid://berhqwpk7gc6j" path="res://scripts/ui/lobby.gd" id="1_ekxnf"]
+[ext_resource type="AudioStream" uid="uid://hkisw6kl05sk" path="res://music/red_carpet_title.wav" id="2_bqqt6"]
+[ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="2_wu84c"]
+[ext_resource type="Theme" uid="uid://b546umxs75n8s" path="res://styles/main.tres" id="3_wu84c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bqqt6"]
+font = ExtResource("2_wu84c")
+font_size = 42
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
+bg_color = Color(0.09019608, 0.5176471, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_rtw2f"]
+font = ExtResource("2_wu84c")
+font_size = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bqqt6"]
+color = Color(0, 0.40784314, 0.81960785, 0.39215687)
+grow_begin = 10.0
+grow_end = 10.0
+thickness = 2
+
+[node name="MainMenu" type="Control" unique_id=837688751]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ekxnf")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2017724354]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.5
+offset_top = -33.0
+offset_right = 44.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=836471443]
+layout_mode = 2
+text = "Jesvilemys"
+label_settings = SubResource("LabelSettings_bqqt6")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayerNamePanel" type="PanelContainer" parent="VBoxContainer" unique_id=2109833233]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8ln24")
+
+[node name="Label" type="Label" parent="VBoxContainer/PlayerNamePanel" unique_id=1191826756]
+layout_mode = 2
+text = "Player Name: [player name]!"
+label_settings = SubResource("LabelSettings_rtw2f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1613996542]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_bqqt6")
+
+[node name="QuickJoinButton" type="Button" parent="VBoxContainer" unique_id=608615980]
+layout_mode = 2
+theme = ExtResource("3_wu84c")
+text = "Quick Join"
+
+[node name="PlayAlone" type="Button" parent="VBoxContainer" unique_id=734183452]
+layout_mode = 2
+theme = ExtResource("3_wu84c")
+text = "Single Player"
+
+[node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=2122177784]
+stream = ExtResource("2_bqqt6")
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/QuickJoinButton" to="." method="quick_start"]
+[connection signal="pressed" from="VBoxContainer/PlayAlone" to="." method="play_alone"]
