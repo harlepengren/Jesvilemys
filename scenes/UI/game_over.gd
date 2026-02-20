@@ -7,6 +7,7 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("Getting stats")
 	get_node("/root/GameManager").rpc_id(1,"get_stats")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -14,7 +15,7 @@ func _process(delta: float) -> void:
 	pass
 
 func update_stats(winning_player, num_hits,num_damage, num_deaths):
-	print("Received winner: " + winning_player)
+	print("Received winner: " + winning_player + "(%d,%d,%d)"%[num_hits,num_damage,num_deaths])
 
 	winner.text = winning_player + " Won!"
 	hits.text = "Hits: %s"%[num_hits]
