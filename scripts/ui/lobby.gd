@@ -1,19 +1,24 @@
 extends Control
 
+
+@onready var player_name_reference = $'VBoxContainer/PlayerNamePanel/Label'
+
+
 var websocket := WebSocketPeer.new()
 var connection_url
 var is_connecting = false
 var request_sent = false
 
+
 func _ready():
-	$PlayerName.text = "Welcome " + Globals.player_name + "!"
-	
+	player_name_reference.text = "Player Name: " + Globals.player_name
+
 	var connection_details = load_config()
-	
+
 	if connection_details.has("server_ip") and connection_details.has("signal_server_port"):
 		var server_ip = connection_details["server_ip"]
 		var server_port = connection_details["signal_server_port"]
-	
+
 		connection_url = "ws://"+server_ip+":"+str(server_port)
 	print("Server info: " + connection_url)
 
