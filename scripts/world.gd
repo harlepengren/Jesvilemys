@@ -100,6 +100,4 @@ func hide_game_over():
 	
 @rpc("authority","call_remote","unreliable")
 func update_time(time):
-	var time_remaining = $CanvasLayer/GameOver/new_game_label
-	
-	time_remaining.text = "Time to Next Game: %02d seconds"%[time]
+	time_remaining_reference.text = "Time to Next Game: %02d seconds"%[time]
