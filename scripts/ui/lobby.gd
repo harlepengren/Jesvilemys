@@ -1,7 +1,7 @@
-extends Control
+extends Node3D
 
 
-@onready var player_name_reference = $'VBoxContainer/PlayerNamePanel/Label'
+@onready var player_name_reference = $'CanvasLayer/VBoxContainer/PlayerNamePanel/Label'
 
 
 var websocket := WebSocketPeer.new()

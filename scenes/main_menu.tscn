@@ -1,9 +1,19 @@
 [gd_scene format=3 uid="uid://dmxg3f5my6rrw"]
 
 [ext_resource type="Script" uid="uid://berhqwpk7gc6j" path="res://scripts/ui/lobby.gd" id="1_ekxnf"]
+[ext_resource type="PackedScene" uid="uid://uy78l3pa3ptd" path="res://scenes/backgrounds/noodle_plains.tscn" id="2_8ln24"]
 [ext_resource type="AudioStream" uid="uid://hkisw6kl05sk" path="res://music/red_carpet_title.wav" id="2_bqqt6"]
 [ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="2_wu84c"]
+[ext_resource type="PackedScene" uid="uid://bgnm4jaj0hhbp" path="res://scenes/stages/noodle_plains.tscn" id="3_rtw2f"]
 [ext_resource type="Theme" uid="uid://b546umxs75n8s" path="res://styles/main.tres" id="3_wu84c"]
+
+[sub_resource type="Gradient" id="Gradient_rtw2f"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_oa1go"]
+gradient = SubResource("Gradient_rtw2f")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
 
 [sub_resource type="LabelSettings" id="LabelSettings_bqqt6"]
 font = ExtResource("2_wu84c")
@@ -28,57 +38,70 @@ grow_begin = 10.0
 grow_end = 10.0
 thickness = 2
 
-[node name="MainMenu" type="Control" unique_id=837688751]
-layout_mode = 3
+[node name="MainMenu" type="Node3D" unique_id=2101592822]
+script = ExtResource("1_ekxnf")
+
+[node name="Background" parent="." unique_id=1708424920 instance=ExtResource("2_8ln24")]
+
+[node name="Stage" parent="." unique_id=1708005803 instance=ExtResource("3_rtw2f")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1946750134]
+transform = Transform3D(1, 0, 0, 0, 0.64278764, 0.76604444, 0, -0.76604444, 0.64278764, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=414816538]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1555338505]
+
+[node name="BackgroundGradient" type="TextureRect" parent="CanvasLayer" unique_id=1063947730]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_ekxnf")
+texture = SubResource("GradientTexture2D_oa1go")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=2017724354]
-layout_mode = 1
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=2017724354]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -44.5
-offset_top = -33.0
-offset_right = 44.5
-offset_bottom = 33.0
+offset_left = -104.0
+offset_top = -65.0
+offset_right = 104.0
+offset_bottom = 65.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TitleLabel" type="Label" parent="VBoxContainer" unique_id=836471443]
+[node name="TitleLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=836471443]
 layout_mode = 2
 text = "Jesvilemys"
 label_settings = SubResource("LabelSettings_bqqt6")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayerNamePanel" type="PanelContainer" parent="VBoxContainer" unique_id=2109833233]
+[node name="PlayerNamePanel" type="PanelContainer" parent="CanvasLayer/VBoxContainer" unique_id=2109833233]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_8ln24")
 
-[node name="Label" type="Label" parent="VBoxContainer/PlayerNamePanel" unique_id=1191826756]
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer/PlayerNamePanel" unique_id=1191826756]
 layout_mode = 2
 text = "Player Name: [player name]!"
 label_settings = SubResource("LabelSettings_rtw2f")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer" unique_id=1613996542]
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/VBoxContainer" unique_id=1613996542]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_bqqt6")
 
-[node name="QuickJoinButton" type="Button" parent="VBoxContainer" unique_id=608615980]
+[node name="QuickJoinButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=608615980]
 layout_mode = 2
 theme = ExtResource("3_wu84c")
 text = "Quick Join"
 
-[node name="PlayAlone" type="Button" parent="VBoxContainer" unique_id=734183452]
+[node name="PlayAlone" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=734183452]
 layout_mode = 2
 theme = ExtResource("3_wu84c")
 text = "Single Player"
@@ -87,5 +110,5 @@ text = "Single Player"
 stream = ExtResource("2_bqqt6")
 autoplay = true
 
-[connection signal="pressed" from="VBoxContainer/QuickJoinButton" to="." method="quick_start"]
-[connection signal="pressed" from="VBoxContainer/PlayAlone" to="." method="play_alone"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/QuickJoinButton" to="." method="quick_start"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/PlayAlone" to="." method="play_alone"]
