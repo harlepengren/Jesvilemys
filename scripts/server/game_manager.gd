@@ -119,7 +119,9 @@ func register_hit(attacker_id:int,victim_id:int):
 	victim.rpc_id(victim_id,"punched", Vector3(direction * 8.0, 1.0, 0.0))
 
 @rpc("any_peer", "reliable")
-func player_died(player_id:int):
+func player_died():
+	var player_id = multiplayer.get_remote_sender_id()
+	print("player died: ", player_id)
 	if not hit_stats.has(player_id):
 		hit_stats[player_id] = {"hits_given": 0, "hits_received": 0, "deaths": 1}
 	hit_stats[player_id]["deaths"] += 1

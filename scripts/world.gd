@@ -76,12 +76,14 @@ func _on_item_timer_timeout() -> void:
 
 func _on_death_boundary_body_entered(body: Node3D) -> void:
 	body.position = Vector3(0.0, 10.0, 0.0)
+	get_node("/root/GameManager").player_died.rpc()
 
 
 func spawn_simple_player(): # Used for basic testing
 	var player = player_scene.instantiate()
 	self.add_child(player)
 	
+# Updates time remaining on main game screen
 @rpc("authority", "call_remote", "unreliable")
 func update_timer_display(time):
 	time_remaining_reference.text = "Time Remaining: " + "%02d" % [time]
@@ -97,6 +99,9 @@ func hide_game_over():
 	print("hiding game over")
 	game_over_instance.queue_free()
 	
+# Updates the time on the game over screen
 @rpc("authority","call_remote","unreliable")
 func update_time(time):
-	time_remaining_reference.text = "Time to Next Game: %02d seconds"%[time]
+	var time_remaining = $CanvasLayer/GameOver/MarginContainer/VBoxContainer/NewGameLabel
+	
+	time_remaining.text = "Time to Next Game: %02d seconds"%[time]
