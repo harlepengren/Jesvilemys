@@ -118,6 +118,12 @@ func register_hit(attacker_id:int,victim_id:int):
 	var direction = sign((victim.position - attacker.position).x)
 	victim.rpc_id(victim_id,"punched", Vector3(direction * 8.0, 1.0, 0.0))
 
+@rpc("any_peer", "reliable")
+func player_died(player_id:int):
+	if not hit_stats.has(player_id):
+		hit_stats[player_id] = {"hits_given": 0, "hits_received": 0, "deaths": 1}
+	hit_stats[player_id]["deaths"] += 1
+
 @rpc("any_peer","call_local","reliable")
 func get_stats():
 	if not Globals.is_server: return
