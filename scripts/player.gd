@@ -11,8 +11,6 @@ extends CharacterBody3D
 @export var speed_decrease = 1.0
 @export var turn_speed = 1.0
 
-@export var modifier_faster_speed_amount = 200.0
-
 @export_category('Jumping')
 @export var jump_velocity = 4.8
 
@@ -120,7 +118,7 @@ func handle_jump() -> void:
 	if !(self.is_on_floor() or self.air_time <= self.max_air_time):
 		return
 
-	self.velocity.y = self.jump_velocity
+	self.velocity.y = self.jump_velocity + int(self.modifiers['faster'] != 0.0) * 2.0
 	self.air_time = self.max_air_time + 1
 
 func handle_movement() -> void: # Get the input direction and handle the movement/deceleration	
@@ -142,7 +140,7 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 
 		return
 
-	self.velocity.x = move_toward(self.velocity.x, direction * (self.top_speed + int(self.modifiers['faster'] != 0.0) * self.modifier_faster_speed_amount), self.speed_increase)
+	self.velocity.x = move_toward(self.velocity.x, direction * (self.top_speed + int(self.modifiers['faster'] != 0.0) * 2.0), self.speed_increase)
 	self.last_direction.x = direction
 
 	punch_area_reference.position.x = last_direction.x * 0.3
