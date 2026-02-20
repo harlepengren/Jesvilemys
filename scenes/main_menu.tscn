@@ -106,9 +106,33 @@ layout_mode = 2
 theme = ExtResource("3_wu84c")
 text = "Single Player"
 
+[node name="CopyrightMarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=2140111215]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="CopyrightLabel" type="RichTextLabel" parent="CanvasLayer/CopyrightMarginContainer" unique_id=750961466]
+layout_mode = 2
+size_flags_vertical = 8
+theme = ExtResource("3_wu84c")
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "© 2026 Jesvilemys contributers – Contribute at [url]https://github.com/harlepengren/Jesvilemys[/url]"
+fit_content = true
+scroll_active = false
+
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=2122177784]
 stream = ExtResource("2_bqqt6")
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/QuickJoinButton" to="." method="quick_start"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/PlayAlone" to="." method="play_alone"]
+[connection signal="meta_clicked" from="CanvasLayer/CopyrightMarginContainer/CopyrightLabel" to="." method="_on_copyright_label_meta_clicked"]

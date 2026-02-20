@@ -128,4 +128,7 @@ func start_game():
 	print("Starting game on server port: ", port)
 	GameManager.rpc_id(1, "register_name", Globals.player_name)
 	get_tree().change_scene_to_file("res://scenes/world.tscn")
-	
+
+
+func _on_copyright_label_meta_clicked(meta: Variant) -> void:
+	OS.shell_open(meta)
