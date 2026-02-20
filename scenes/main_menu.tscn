@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://berhqwpk7gc6j" path="res://scripts/ui/lobby.gd" id="1_ekxnf"]
 [ext_resource type="PackedScene" uid="uid://uy78l3pa3ptd" path="res://scenes/backgrounds/noodle_plains.tscn" id="2_8ln24"]
-[ext_resource type="AudioStream" uid="uid://hkisw6kl05sk" path="res://music/red_carpet_title.wav" id="2_bqqt6"]
 [ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="2_wu84c"]
 [ext_resource type="PackedScene" uid="uid://bgnm4jaj0hhbp" path="res://scenes/stages/noodle_plains.tscn" id="3_rtw2f"]
 [ext_resource type="Theme" uid="uid://b546umxs75n8s" path="res://styles/main.tres" id="3_wu84c"]
+[ext_resource type="AudioStream" uid="uid://c716pj6vvy0yy" path="res://music/red_carpet_title.mp3" id="6_rtw2f"]
 
 [sub_resource type="Gradient" id="Gradient_rtw2f"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -130,7 +130,7 @@ fit_content = true
 scroll_active = false
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=2122177784]
-stream = ExtResource("2_bqqt6")
+stream = ExtResource("6_rtw2f")
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/QuickJoinButton" to="." method="quick_start"]
