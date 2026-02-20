@@ -58,9 +58,14 @@ func _process(_delta):
 			if not request_sent:
 				print("sending a websocket request")
 				var request = JSON.stringify({"action": "request_port"})
-				websocket.send_text(request)
-				websocket.poll()
-				request_sent = true
+				var err = websocket.send_text(request)
+				
+				if err == OK:
+					print("Request successfully sent")
+					request_sent = true
+				else:
+					print("Error sending request")
+
 			else:
 				print("waiting")
 			
@@ -77,7 +82,8 @@ func _process(_delta):
 			print("Packets remaining: ", websocket.get_available_packet_count())
 			
 			var code = websocket.get_close_code()
-			print("WebSocket closed with code: %d" % code)
+			var reason = websocket.get_close_reason()
+			print("WebSocket closed with code: %d, reason: %s" % [code, reason])
 			set_process(false)  # Stop processing
 			is_connecting = false
 

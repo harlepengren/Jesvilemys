@@ -1,90 +1,157 @@
 [gd_scene format=3 uid="uid://b3i2uw3dlwipd"]
 
 [ext_resource type="Script" uid="uid://p8bqpp4guheu" path="res://scenes/UI/game_over.gd" id="1_njkqv"]
+[ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="2_vop4n"]
 
-[node name="GameOver" type="Control" unique_id=997433859]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 103.0
-offset_top = -48.0
-offset_right = 103.0
-offset_bottom = -48.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a2ham"]
+bg_color = Color(0.7137255, 0.50980395, 0.39215687, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="LabelSettings" id="LabelSettings_l48yu"]
+font = ExtResource("2_vop4n")
+font_size = 45
+outline_size = 15
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l48yu"]
+bg_color = Color(0.09019608, 0.5176471, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_vop4n"]
+font = ExtResource("2_vop4n")
+font_size = 32
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_vop4n"]
+color = Color(0, 0, 0, 0.3529412)
+thickness = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_a2ham"]
+font = ExtResource("2_vop4n")
+font_size = 32
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vop4n"]
+bg_color = Color(0, 0, 0, 0.38431373)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_yv7mv"]
+font = ExtResource("2_vop4n")
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_r5ffl"]
+font = ExtResource("2_vop4n")
+font_size = 20
+
+[node name="GameOver" type="PanelContainer" unique_id=825007369]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -245.0
+offset_right = 210.0
+offset_bottom = 245.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_a2ham")
 script = ExtResource("1_njkqv")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1961094058]
-layout_mode = 0
-offset_left = 358.0
-offset_top = 139.0
-offset_right = 805.0
-offset_bottom = 629.0
-color = Color(0.7153372, 0.51033556, 0.3931982, 1)
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1608903035]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
-[node name="game_over_header" type="Label" parent="." unique_id=1847291981]
-layout_mode = 0
-offset_left = 359.0
-offset_top = 148.0
-offset_right = 804.0
-offset_bottom = 203.0
-theme_override_font_sizes/font_size = 40
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1284558172]
+layout_mode = 2
+
+[node name="GameOverHeader" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1847291981]
+layout_mode = 2
 text = "Game Over"
+label_settings = SubResource("LabelSettings_l48yu")
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="winner" type="Label" parent="." unique_id=1547981768]
-layout_mode = 0
-offset_left = 357.0
-offset_top = 203.0
-offset_right = 802.0
-offset_bottom = 258.0
-theme_override_font_sizes/font_size = 40
+[node name="WinnerPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=1136763400]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l48yu")
+
+[node name="WinnerLabel" type="Label" parent="MarginContainer/VBoxContainer/WinnerPanel" unique_id=1547981768]
+layout_mode = 2
 text = "Winner"
+label_settings = SubResource("LabelSettings_vop4n")
 horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="key_stats_header" type="Label" parent="." unique_id=1806606224]
-layout_mode = 0
-offset_left = 370.0
-offset_top = 305.0
-offset_right = 483.0
-offset_bottom = 339.0
-theme_override_font_sizes/font_size = 24
-text = "Key Stats:"
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1554110326]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_vop4n")
 
-[node name="hits" type="Label" parent="." unique_id=845814919]
-layout_mode = 0
-offset_left = 431.0
-offset_top = 350.0
-offset_right = 530.0
-offset_bottom = 384.0
-theme_override_font_sizes/font_size = 24
+[node name="StatsHeader" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1806606224]
+layout_mode = 2
+text = "Key Stats"
+label_settings = SubResource("LabelSettings_a2ham")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatsPanel" type="PanelContainer" parent="MarginContainer/VBoxContainer" unique_id=732750842]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vop4n")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/StatsPanel" unique_id=2007240884]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/StatsPanel/MarginContainer" unique_id=819262552]
+layout_mode = 2
+
+[node name="Hits" type="Label" parent="MarginContainer/VBoxContainer/StatsPanel/MarginContainer/VBoxContainer" unique_id=845814919]
+layout_mode = 2
 text = "Hits: 532"
+label_settings = SubResource("LabelSettings_yv7mv")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="damage_received" type="Label" parent="." unique_id=716547281]
-layout_mode = 0
-offset_left = 432.0
-offset_top = 387.0
-offset_right = 531.0
-offset_bottom = 421.0
-theme_override_font_sizes/font_size = 24
-text = "Hits: 532"
+[node name="DamageRecieved" type="Label" parent="MarginContainer/VBoxContainer/StatsPanel/MarginContainer/VBoxContainer" unique_id=716547281]
+layout_mode = 2
+text = "Damage Recieved: 241"
+label_settings = SubResource("LabelSettings_yv7mv")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="deaths" type="Label" parent="." unique_id=1266337957]
-layout_mode = 0
-offset_left = 434.0
-offset_top = 425.0
-offset_right = 566.0
-offset_bottom = 459.0
+[node name="Deaths" type="Label" parent="MarginContainer/VBoxContainer/StatsPanel/MarginContainer/VBoxContainer" unique_id=1266337957]
+layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Deaths:     5"
+text = "Deaths: 5"
+label_settings = SubResource("LabelSettings_yv7mv")
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="new_game_label" type="Label" parent="." unique_id=376194241]
-layout_mode = 0
-offset_left = 364.0
-offset_top = 528.0
-offset_right = 800.0
-offset_bottom = 573.0
-theme_override_font_sizes/font_size = 24
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=729061854]
+layout_mode = 2
+theme_override_constants/separation = 20
+theme_override_styles/separator = SubResource("StyleBoxLine_vop4n")
+
+[node name="NewGameLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=376194241]
+layout_mode = 2
 text = "new_game_start"
+label_settings = SubResource("LabelSettings_r5ffl")
 horizontal_alignment = 1

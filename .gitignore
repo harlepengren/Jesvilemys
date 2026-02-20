@@ -21,3 +21,6 @@ mono_crash.*.json
 # Export
 export_presets.cfg
 export/
+
+# Python
+*.pyc

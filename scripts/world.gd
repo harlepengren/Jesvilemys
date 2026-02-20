@@ -5,7 +5,9 @@ extends Node3D
 
 @onready var player_scene = preload('res://scenes/player.tscn')
 
-@onready var title_board_reference = $'CanvasLayer/TitleBoard'
+@onready var title_board_reference = $'CanvasLayer/MarginContainer/TitleBoard'
+@onready var time_remaining_reference = $'CanvasLayer/MarginContainer/TimeRemainingLabel'
+
 @onready var item_timer_reference = $'ItemTimer'
 
 @onready var camera_reference = $'Camera3D'
@@ -82,8 +84,8 @@ func spawn_simple_player(): # Used for basic testing
 	
 @rpc("authority", "call_remote", "unreliable")
 func update_timer_display(time):
-	$CanvasLayer/TimeRemaining.text = "Time Remaining: " + "%02d" % [time]
-	
+	time_remaining_reference.text = "Time Remaining: " + "%02d" % [time]
+
 @rpc("authority", "call_remote", "reliable")
 func show_game_over():
 	game_over_instance = game_over_scene.instantiate()
@@ -97,6 +99,4 @@ func hide_game_over():
 	
 @rpc("authority","call_remote","unreliable")
 func update_time(time):
-	var time_remaining = $CanvasLayer/GameOver/new_game_label
-	
-	time_remaining.text = "Time to Next Game: %02d seconds"%[time]
+	time_remaining_reference.text = "Time to Next Game: %02d seconds"%[time]

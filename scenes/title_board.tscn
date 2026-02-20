@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://7n3f2gkfgkr5" path="res://scripts/title_board.gd" id="1_f6o74"]
 [ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="2_h762p"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_e0gbq"]
+[sub_resource type="LabelSettings" id="LabelSettings_h762p"]
 font = ExtResource("2_h762p")
 font_size = 25
 outline_size = 5
@@ -25,11 +25,9 @@ script = ExtResource("1_f6o74")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 59.0
+offset_bottom = 30.0
 grow_horizontal = 2
-text = "
-"
-label_settings = SubResource("LabelSettings_e0gbq")
+label_settings = SubResource("LabelSettings_h762p")
 horizontal_alignment = 1
 vertical_alignment = 1
 
