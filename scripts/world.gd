@@ -52,14 +52,15 @@ func _ready() -> void:
 
 	#self.spawn_simple_player() # Remove for multiplayer
 
-@rpc("authority","call_remote","reliable")
 func load_scene():
 	current_level_info = SceneManager.get_current_level()
-	var current_stage = load(current_level_info["level_stage"])
-	var stage = current_stage.instantiate()
+	if current_level_info == null:
+		push_error("world load scene is null")
+		return
+	
+	var stage = load(current_level_info["level_stage"]).instantiate()
 	self.add_child(stage)
-	var current_background = load(current_level_info["level_background"])
-	var background = current_background.instantiate()
+	var background = load(current_level_info["level_background"]).instantiate()
 	self.add_child(background)
 
 func _on_item_timer_timeout() -> void:
