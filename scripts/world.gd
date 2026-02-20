@@ -41,6 +41,8 @@ func _ready() -> void:
 		print("Server: not starting client")
 	elif playing_alone:
 		print("Playing alone")
+
+		# Load Player
 		var player = player_scene.instantiate()
 
 		player.model_reference = player.get_node('CharlieModel')
@@ -49,6 +51,10 @@ func _ready() -> void:
 		player.model_reference.show()
 
 		add_child(player)
+
+		# Load Level
+		SceneManager.current_level = SceneManager.choose_random_level()
+		load_scene()
 
 	item_timer_reference.start(10)
 
