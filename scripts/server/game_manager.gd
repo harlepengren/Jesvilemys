@@ -12,6 +12,8 @@ var winner:String = ""
 func _ready() -> void:
 	if Globals.is_server:
 		current_game_state = State.WAITING
+		
+		multiplayer.peer_disconnected.connect(player_disconnected)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,9 +64,16 @@ func _on_timer_timeout():
 		_start_timer(25,true)
 		get_node("/root/World").rpc("show_game_over")
 	elif current_game_state == State.END:
+		clear_stats()
 		current_game_state = State.WAITING
 		get_node("/root/World").rpc("hide_game_over")
 		get_tree().paused = false
+		
+		# Select and load a new level
+		if Globals.is_server:
+			get_node("/root/SceneManager").select_new_level()
+			
+		
 		
 func calculate_score():
 	if not Globals.is_server:
@@ -83,7 +92,14 @@ func calculate_score():
 	winner = winning_player
 	print("Winner: " + winner)
 	return
-		
+
+func clear_stats():
+	print("clearing stats")
+	for key in hit_stats.keys():
+		hit_stats[key]["hits_given"] = 0
+		hit_stats[key]["hits_received"] = 0
+		hit_stats[key]["deaths"] = 0
+	
 @rpc("any_peer","call_local","reliable")
 func register_name(player_name:String):
 	if not Globals.is_server:
@@ -121,7 +137,6 @@ func register_hit(attacker_id:int,victim_id:int):
 @rpc("any_peer", "reliable")
 func player_died():
 	var player_id = multiplayer.get_remote_sender_id()
-	print("player died: ", player_id)
 	if not hit_stats.has(player_id):
 		hit_stats[player_id] = {"hits_given": 0, "hits_received": 0, "deaths": 1}
 	hit_stats[player_id]["deaths"] += 1
@@ -143,3 +158,7 @@ func receive_stats(game_winner:String, hits_given: int, hits_received: int, deat
 	if Globals.is_server: return
 	
 	get_node("/root/World/CanvasLayer/GameOver").update_stats(game_winner,hits_given, hits_received, deaths)
+
+func player_disconnected(id:int):
+	hit_stats.erase(id)
+	print("Hit stats: " + str(len(hit_stats)))

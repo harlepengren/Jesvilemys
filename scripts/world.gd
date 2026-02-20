@@ -52,9 +52,10 @@ func _ready() -> void:
 
 		add_child(player)
 
-		# Load Level
-		SceneManager.current_level = SceneManager.choose_random_level()
-		load_scene()
+		if Globals.port == -1:
+			# Load Level
+			SceneManager.current_level = SceneManager.choose_random_level()
+			load_scene()
 
 	item_timer_reference.start(10)
 
@@ -82,7 +83,10 @@ func _on_item_timer_timeout() -> void:
 
 func _on_death_boundary_body_entered(body: Node3D) -> void:
 	body.position = Vector3(0.0, 10.0, 0.0)
-	get_node("/root/GameManager").player_died.rpc()
+	
+	if body.get_multiplayer_authority() == multiplayer.get_unique_id():
+		print("Player Died:",body.get_multiplayer_authority())
+		get_node("/root/GameManager").player_died.rpc()
 
 
 func spawn_simple_player(): # Used for basic testing
