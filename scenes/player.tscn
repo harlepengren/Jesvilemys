@@ -39,6 +39,7 @@ properties/5/spawn = true
 properties/5/replication_mode = 1
 
 [node name="Player" type="CharacterBody3D" unique_id=872718762]
+axis_lock_linear_z = true
 script = ExtResource("1_g2els")
 
 [node name="CharlieModel" parent="." unique_id=1087814130 instance=ExtResource("1_3vyb7")]
