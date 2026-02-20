@@ -22,13 +22,18 @@ func _ready():
 		connection_url = "ws://"+server_ip+":"+str(server_port)
 	print("Server info: " + connection_url)
 
+
 func quick_start():
 	# Send a websocket message to IP_ADDRESS requesting a new position
 	request_game_port()
-	
+
 func play_alone():
 	Globals.set_port(-1)
 	start_game()
+
+func _on_quit_button_pressed() -> void:
+	get_tree().quit()
+
 
 func load_config() -> Dictionary:
 	var file = FileAccess.open("res://scripts/server/config.json", FileAccess.READ)
