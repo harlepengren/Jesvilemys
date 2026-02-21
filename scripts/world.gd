@@ -75,7 +75,8 @@ func load_scene():
 	var background = load(current_level_info["level_background"]).instantiate()
 	self.add_child(background)
 
-	loading_screen_reference.hide()
+	if loading_screen_reference:
+		loading_screen_reference.hide()
 
 func _on_item_timer_timeout() -> void:
 	title_board_reference.change_colors(Color(0.8, 0.741, 0.98), Color(0.29, 0.0, 0.74))
