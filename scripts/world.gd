@@ -11,6 +11,7 @@ extends Node3D
 @onready var item_timer_reference = $'ItemTimer'
 
 @onready var camera_reference = $'Camera3D'
+@onready var begin_game_button_reference = $'CanvasLayer/MarginContainer/BeginGameButton'
 
 # Load and instantiate the scene
 @onready var game_over_scene = preload("res://scenes/UI/game_over.tscn")
@@ -99,7 +100,7 @@ func spawn_simple_player(): # Used for basic testing
 
 
 func _on_begin_game_button_pressed() -> void:
-	$'CanvasLayer/MarginContainer/BeginGameButton'.release_focus()
+	begin_game_button_reference.release_focus()
 	get_node('/root/GameManager').rpc('begin_game')
 	get_node("/root/GameManager").clear_stats()
 
@@ -112,6 +113,7 @@ func update_timer_display(time):
 @rpc("authority", "call_remote", "reliable")
 func show_game_over():
 	time_remaining_reference.text = 'Waiting for more players... (Press \'Begin Game\' when ready)'
+	begin_game_button_reference.show()
 
 	game_over_instance = game_over_scene.instantiate()
 	$CanvasLayer.add_child(game_over_instance)

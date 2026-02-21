@@ -103,7 +103,13 @@ func register_name(player_name:String):
 @rpc('any_peer', 'call_local', 'reliable')
 func begin_game():
 	var world_reference = get_node('/root/World')
+	var background_music_reference = get_node('/root/World/BackgroundMusicPlayer')
+	var begin_game_button_reference = world_reference.begin_game_button_reference
 	var game_over_reference = world_reference.game_over_instance
+
+	begin_game_button_reference.hide()
+
+	background_music_reference.play()
 
 	if game_over_reference:
 		game_over_reference.queue_free()

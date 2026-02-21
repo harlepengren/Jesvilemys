@@ -114,7 +114,6 @@ network_player = ExtResource("6_4mrxx")
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=350384074]
 stream = ExtResource("8_4mrxx")
-autoplay = true
 
 [connection signal="body_entered" from="DeathBoundary" to="." method="_on_death_boundary_body_entered"]
 [connection signal="timeout" from="ItemTimer" to="." method="_on_item_timer_timeout"]
