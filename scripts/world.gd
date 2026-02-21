@@ -92,7 +92,13 @@ func _on_death_boundary_body_entered(body: Node3D) -> void:
 func spawn_simple_player(): # Used for basic testing
 	var player = player_scene.instantiate()
 	self.add_child(player)
-	
+
+
+func _on_begin_game_button_pressed() -> void:
+	$'CanvasLayer/MarginContainer/BeginGameButton'.release_focus()
+	get_node('/root/GameManager').rpc_id(1, 'begin_game')
+
+
 # Updates time remaining on main game screen
 @rpc("authority", "call_remote", "unreliable")
 func update_timer_display(time):
