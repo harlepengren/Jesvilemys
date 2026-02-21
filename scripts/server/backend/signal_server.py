@@ -80,19 +80,12 @@ async def handle_client(websocket):
 
 async def main():
     """Start the WebSocket server."""
-    host = "0.0.0.0"  # Listen on all interfaces
+    host = "127.0.0.1"  # Only listen locally since nginx proxies to us
     port = 8080
     
-    # Create SSL context
-    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-    ssl_context.load_cert_chain(
-        certfile="certs/fullchain.pem",
-        keyfile="certs/privkey.pem"
-    )
-
-    print(f"Starting WSS server on {host}:{port}")
+    print(f"Starting WS server on {host}:{port}")
     
-    async with websockets.serve(handle_client, host, port, ssl=ssl_context):
+    async with websockets.serve(handle_client, host, port):
         await asyncio.Future()  # Run forever
 
 if __name__ == "__main__":
