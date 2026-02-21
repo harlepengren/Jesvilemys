@@ -1,6 +1,10 @@
 import asyncio
 import json
 import websockets
+import ssl
+import certifi
+
+SSL_CONTEXT = ssl.create_default_context(cafile=certifi.where())
 
 uri = "wss://jesvilemys.com:8080"
 
@@ -10,7 +14,7 @@ async def test_port_request():
     print(f"Connecting to {uri}...")
     
     try:
-        async with websockets.connect(uri) as websocket:
+        async with websockets.connect(uri, ssl=SSL_CONTEXT) as websocket:
             print("Connected successfully!")
             
             # Test 1: Request a port
@@ -85,7 +89,7 @@ async def test_multiple_clients():
     
     async def request_port(client_id):
         try:
-            async with websockets.connect(uri) as websocket:
+            async with websockets.connect(uri, ssl=SSL_CONTEXT) as websocket:
                 request = {"action": "request_port"}
                 await websocket.send(json.dumps(request))
                 
@@ -124,7 +128,7 @@ async def test_connection_lifecycle():
     
     # Connect and get a port
     print("Client 1: Connecting and requesting port...")
-    async with websockets.connect(uri) as websocket:
+    async with websockets.connect(uri, ssl=SSL_CONTEXT) as websocket:
         request = {"action": "request_port"}
         await websocket.send(json.dumps(request))
         response = await websocket.recv()
@@ -139,7 +143,7 @@ async def test_connection_lifecycle():
     
     # Connect again and see if we can get the same port
     print("Client 2: Connecting and requesting port...")
-    async with websockets.connect(uri) as websocket:
+    async with websockets.connect(uri, ssl=SSL_CONTEXT) as websocket:
         request = {"action": "request_port"}
         await websocket.send(json.dumps(request))
         response = await websocket.recv()
