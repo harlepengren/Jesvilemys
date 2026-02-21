@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cheygtahkx81t" path="res://scenes/title_board.tscn" id="3_4wyf3"]
 [ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="4_4mrxx"]
 [ext_resource type="Script" uid="uid://cbwn4f4d1nw57" path="res://scripts/server/multiplayer.gd" id="4_qfnet"]
+[ext_resource type="Theme" uid="uid://b546umxs75n8s" path="res://styles/main.tres" id="5_7r4gi"]
 [ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="5_i7141"]
 [ext_resource type="PackedScene" uid="uid://s066fgmijkyf" path="res://scenes/player.tscn" id="6_4mrxx"]
 [ext_resource type="AudioStream" uid="uid://dlm4r42nwp2yh" path="res://music/red_carpet.mp3" id="8_4mrxx"]
@@ -47,10 +48,11 @@ shape = SubResource("WorldBoundaryShape3D_i7141")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1951990238]
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1559854478]
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 30.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
@@ -58,12 +60,21 @@ theme_override_constants/margin_bottom = 10
 
 [node name="TitleBoard" parent="CanvasLayer/MarginContainer" unique_id=1288526576 instance=ExtResource("3_4wyf3")]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="TimeRemainingLabel" type="Label" parent="CanvasLayer/MarginContainer" unique_id=1556843330]
 layout_mode = 2
+size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "time_remaining"
 label_settings = SubResource("LabelSettings_7r4gi")
+
+[node name="BeginGameButton" type="Button" parent="CanvasLayer/MarginContainer" unique_id=1105847775]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme = ExtResource("5_7r4gi")
+text = "Begin Game"
 
 [node name="Multiplayer" type="Node3D" parent="." unique_id=488225750]
 script = ExtResource("4_qfnet")
@@ -80,3 +91,4 @@ autoplay = true
 
 [connection signal="body_entered" from="DeathBoundary" to="." method="_on_death_boundary_body_entered"]
 [connection signal="timeout" from="ItemTimer" to="." method="_on_item_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/BeginGameButton" to="." method="_on_begin_game_button_pressed"]
