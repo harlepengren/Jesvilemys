@@ -89,7 +89,7 @@ func _ready() -> void:
 	if is_multiplayer_authority():
 		var chosen = possible_skins.pick_random()
 		set_skin.rpc(chosen)
-	
+
 	get_node("/root/GameManager").rpc("register_name",Globals.player_name)
 
 func _on_new_peer_connected(new_peer_id: int) -> void:
@@ -112,7 +112,7 @@ func handle_gravity(delta: float) -> void:
 		if self.air_time == 50:
 			self.was_airborn = true
 
-func handle_jump() -> void:	
+func handle_jump() -> void:
 	if !Input.is_action_just_pressed('player_jump'):
 		return
 	if !(self.is_on_floor() or self.air_time <= self.max_air_time):
