@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="2_wu84c"]
 [ext_resource type="PackedScene" uid="uid://bgnm4jaj0hhbp" path="res://scenes/stages/noodle_plains.tscn" id="3_rtw2f"]
 [ext_resource type="Theme" uid="uid://b546umxs75n8s" path="res://styles/main.tres" id="3_wu84c"]
+[ext_resource type="Texture2D" uid="uid://d4jik6k4yaxgl" path="res://logo.png" id="4_oa1go"]
 [ext_resource type="AudioStream" uid="uid://c716pj6vvy0yy" path="res://music/red_carpet_title.mp3" id="6_rtw2f"]
 
 [sub_resource type="Gradient" id="Gradient_rtw2f"]
@@ -14,10 +15,6 @@ colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
 gradient = SubResource("Gradient_rtw2f")
 fill_from = Vector2(0, 1)
 fill_to = Vector2(0, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_bqqt6"]
-font = ExtResource("2_wu84c")
-font_size = 42
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ln24"]
 bg_color = Color(0.09019608, 0.5176471, 1, 1)
@@ -74,12 +71,10 @@ offset_bottom = 65.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TitleLabel" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=836471443]
+[node name="Logo" type="TextureRect" parent="CanvasLayer/VBoxContainer" unique_id=1737748346]
 layout_mode = 2
-text = "Jesvilemys"
-label_settings = SubResource("LabelSettings_bqqt6")
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("4_oa1go")
+expand_mode = 5
 
 [node name="PlayerNamePanel" type="PanelContainer" parent="CanvasLayer/VBoxContainer" unique_id=2109833233]
 layout_mode = 2

@@ -13,7 +13,7 @@ config_version=5
 config/name="Jesvilemys"
 run/main_scene="uid://dmxg3f5my6rrw"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://dmipmf647kf2v"
 
 [autoload]
 
