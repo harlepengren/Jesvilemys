@@ -2,7 +2,7 @@ import asyncio
 import json
 import websockets
 
-SERVER_URL = "ws://192.168.1.202:8080"
+SERVER_URL = "wss://jesvilemys.com:8080"
 DELAY_SECONDS = 5  # Simulate a slow client by waiting before reading the response
 
 async def slow_client():

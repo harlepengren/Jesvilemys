@@ -2,10 +2,11 @@ import asyncio
 import json
 import websockets
 
+uri = "wss://jesvilemys.com:8080"
+
 async def test_port_request():
     """Test requesting a port from the server."""
-    uri = "ws://192.168.1.202:8080"
-    
+     
     print(f"Connecting to {uri}...")
     
     try:
@@ -78,7 +79,6 @@ async def test_port_request():
 
 async def test_multiple_clients():
     """Test multiple clients requesting ports simultaneously."""
-    uri = "ws://192.168.1.202:8080"
     num_clients = 5
     
     print(f"\n\n--- Testing {num_clients} simultaneous clients ---")
@@ -119,7 +119,6 @@ async def test_multiple_clients():
 
 async def test_connection_lifecycle():
     """Test that ports are released when connection closes."""
-    uri = "ws://192.168.1.202:8080"
     
     print("\n\n--- Testing connection lifecycle ---")
     
