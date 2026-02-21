@@ -22,6 +22,9 @@ var air_time = self.max_air_time + 1
 
 @onready var world_reference = $'../'
 
+@onready var hit_sound_reference = $'../HitSoundPlayer'
+@onready var step_sound_reference = $'../StepSoundPlayer'
+
 var model_reference: Object
 var animation_reference: Object
 
@@ -135,6 +138,9 @@ func handle_movement() -> void: # Get the input direction and handle the movemen
 		self.velocity.x = move_toward(self.velocity.x, 0, self.speed_decrease)
 		return
 
+	if air_time == 0.0 and !step_sound_reference.playing:
+		step_sound_reference.play()
+
 	model_reference.rotation.y = move_toward(model_reference.rotation.y, direction * 1.5, 0.2)
 	self.animation_states.walking = true
 
@@ -177,7 +183,14 @@ func handle_punch():
 
 		return
 
-	for punchable_body in punch_area_reference.get_overlapping_bodies():
+	var overlapping_punchable_bodies = punch_area_reference.get_overlapping_bodies()
+	var overlapping_punchable_areas = punch_area_reference.get_overlapping_areas()
+
+	if not (overlapping_punchable_bodies and overlapping_punchable_areas):
+		hit_sound_reference.pitch_scale = randf_range(0.9, 1.1)
+		hit_sound_reference.play()
+
+	for punchable_body in overlapping_punchable_bodies:
 		if punchable_body is not CharacterBody3D: continue
 		if punchable_body == self: continue
 
@@ -193,13 +206,16 @@ func handle_punch():
 		var victim_id = punchable_body.name.to_int()
 		get_node("/root/GameManager").rpc_id(1, "register_hit", attacker_id, victim_id)
 
-	for punchable_area in punch_area_reference.get_overlapping_areas():
+	for punchable_area in overlapping_punchable_areas:
 		var area_parent = punchable_area.get_parent()
 
 		if 'item_id' not in area_parent: continue # Check if item
 		if !area_parent.punched(): continue # Run punch function
 
 		use_item(world_reference.current_item_souls[area_parent.item_id], area_parent.position)
+
+		hit_sound_reference.pitch_scale = 0.5
+		hit_sound_reference.play()
 
 	self.animation_states.punch = 25
 	model_reference.rotation.y = self.last_direction.x * 1.5
