@@ -17,11 +17,7 @@ func _process(delta: float) -> void:
 
 
 func _on_timer_timeout() -> void:
-	animation_reference.play_backwards('shrink')
-	animation_reference.queue('float')
-
-	self.is_punched = false
-
+	unshrink.rpc()
 
 func punched() -> bool:
 	if animation_reference.current_animation == 'shrink':
@@ -30,9 +26,20 @@ func punched() -> bool:
 	if self.is_punched:
 		return false
 
-	self.is_punched = true
-	animation_reference.play('shrink')
+	shrink.rpc()
 
 	timer_reference.start(5)
 
 	return true
+	
+@rpc("any_peer","call_local","reliable")
+func shrink():
+	self.is_punched = true
+	animation_reference.play('shrink')
+	
+@rpc("any_peer","call_local","reliable")
+func unshrink():
+	animation_reference.play_backwards('shrink')
+	animation_reference.queue('float')
+
+	self.is_punched = false
