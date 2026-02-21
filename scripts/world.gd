@@ -113,10 +113,11 @@ func show_game_over():
 	$CanvasLayer.add_child(game_over_instance)
 	print("Showing game over")
 	
-@rpc("authority", "call_remote", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func hide_game_over():
 	print("hiding game over")
-	game_over_instance.queue_free()
+	if game_over_instance:
+		game_over_instance.queue_free()
 	
 # Updates the time on the game over screen
 @rpc("authority","call_remote","unreliable")
