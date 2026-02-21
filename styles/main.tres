@@ -2,7 +2,18 @@
 
 [ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="1_7klfi"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bqqt6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7klfi"]
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.13725491, 0.21568628, 0.2627451, 0.78431374)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 5.0
+expand_margin_right = 5.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xew12"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 1
 border_width_top = 1
@@ -15,7 +26,7 @@ corner_radius_bottom_left = 8
 expand_margin_left = 5.0
 expand_margin_right = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wu84c"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kntvc"]
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0.19848853, 0.2999163, 0.36085644, 1)
@@ -31,7 +42,7 @@ corner_radius_bottom_left = 8
 expand_margin_left = 5.0
 expand_margin_right = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oa1go"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_b8u0n"]
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0.13725491, 0.21568628, 0.2627451, 1)
@@ -47,7 +58,7 @@ corner_radius_bottom_left = 8
 expand_margin_left = 5.0
 expand_margin_right = 5.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rtw2f"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rftcb"]
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0.115170784, 0.18493524, 0.22677925, 1)
@@ -66,7 +77,8 @@ expand_margin_right = 5.0
 [resource]
 default_font = ExtResource("1_7klfi")
 Button/fonts/font = ExtResource("1_7klfi")
-Button/styles/focus = SubResource("StyleBoxFlat_bqqt6")
-Button/styles/hover = SubResource("StyleBoxFlat_wu84c")
-Button/styles/normal = SubResource("StyleBoxFlat_oa1go")
-Button/styles/pressed = SubResource("StyleBoxFlat_rtw2f")
+Button/styles/disabled = SubResource("StyleBoxFlat_7klfi")
+Button/styles/focus = SubResource("StyleBoxFlat_xew12")
+Button/styles/hover = SubResource("StyleBoxFlat_kntvc")
+Button/styles/normal = SubResource("StyleBoxFlat_b8u0n")
+Button/styles/pressed = SubResource("StyleBoxFlat_rftcb")

@@ -37,6 +37,7 @@ thickness = 2
 
 [node name="MainMenu" type="Node3D" unique_id=2101592822]
 script = ExtResource("1_ekxnf")
+disable_singleplayer = true
 
 [node name="Background" parent="." unique_id=1708424920 instance=ExtResource("2_8ln24")]
 
@@ -97,6 +98,7 @@ theme = ExtResource("3_wu84c")
 text = "Quick Join"
 
 [node name="PlayAlone" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=734183452]
+visible = false
 layout_mode = 2
 theme = ExtResource("3_wu84c")
 text = "Single Player"

@@ -1,9 +1,12 @@
 extends Node3D
 
 
-@onready var player_name_reference = $'CanvasLayer/VBoxContainer/PlayerNamePanel/Label'
-@onready var quit_button_reference = $'CanvasLayer/VBoxContainer/QuitButton'
+@export var disable_singleplayer = false
 
+@onready var player_name_reference = $'CanvasLayer/VBoxContainer/PlayerNamePanel/Label'
+
+@onready var quit_button_reference = $'CanvasLayer/VBoxContainer/QuitButton'
+@onready var single_player_button_reference = $'CanvasLayer/VBoxContainer/PlayAlone'
 
 var websocket := WebSocketPeer.new()
 var connection_url
@@ -14,6 +17,8 @@ var request_sent = false
 func _ready():
 	if !OS.has_feature('web'):
 		quit_button_reference.show()
+
+	single_player_button_reference.disabled = self.disable_singleplayer
 
 	player_name_reference.text = "Player Name: " + Globals.player_name
 
