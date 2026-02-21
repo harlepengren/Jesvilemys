@@ -25,3 +25,4 @@ export/
 # Python
 *.pyc
 keys/
+certs/
