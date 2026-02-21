@@ -11,7 +11,7 @@ var peer: WebSocketMultiplayerPeer
 func start_client(port:int) -> void:
 	print("starting the client . . .")
 	peer = WebSocketMultiplayerPeer.new()
-	var url = "ws://3.143.102.5:" + str(port)
+	var url = "wss://jesvilemys.com/game/" + str(port)
 	print("attempting to connect on: " + url)
 	var error = peer.create_client(url)
 	
