@@ -5,6 +5,7 @@ import os
 import socket
 import random
 import json
+import ssl
 
 class JServerInstance:
     def __init__(self, id: int):

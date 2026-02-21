@@ -19,7 +19,7 @@ func _ready():
 		var server_ip = connection_details["server_ip"]
 		var server_port = connection_details["signal_server_port"]
 
-		connection_url = "ws://"+server_ip+":"+str(server_port)
+		connection_url = "wss://jesvilemys.com:8080"
 	print("Server info: " + connection_url)
 
 

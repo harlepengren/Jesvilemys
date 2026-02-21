@@ -3,6 +3,7 @@ import json
 import websockets
 from typing import Set
 import server
+import ssl
 
 class PortAllocator:
     def __init__(self):
@@ -82,9 +83,16 @@ async def main():
     host = "0.0.0.0"  # Listen on all interfaces
     port = 8080
     
-    print(f"Starting WebSocket server on {host}:{port}")
+    # Create SSL context
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    ssl_context.load_cert_chain(
+        certfile="keys/fullchain.pem",  # or cert.pem
+        keyfile="keys/privkey.pem"
+    )
+
+    print(f"Starting WSS server on {host}:{port}")
     
-    async with websockets.serve(handle_client, host, port):
+    async with websockets.serve(handle_client, host, port, ssl=ssl_context):
         await asyncio.Future()  # Run forever
 
 if __name__ == "__main__":
