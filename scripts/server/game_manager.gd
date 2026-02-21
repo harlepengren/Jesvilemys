@@ -31,10 +31,7 @@ func _process(delta: float) -> void:
 			get_node("/root/World").rpc("update_timer_display", timer.time_left)
 			time_since_last_update = 0.0
 	elif current_game_state == State.END:
-		time_since_last_update += delta
-		if time_since_last_update > 0.8:
-			get_node("/root/World").rpc("update_time", timer.time_left)
-			time_since_last_update = 0.0
+		pass
 
 func _start_timer(time,always=false):
 	# Create the timer
@@ -56,16 +53,9 @@ func _on_timer_timeout():
 	timer.queue_free()
 
 	if current_game_state == State.RUNNING:
-		current_game_state = State.END
-		calculate_score()
-		#get_tree().paused = true
-		_start_timer(25,true)
-		get_node("/root/World").rpc("show_game_over")
-	elif current_game_state == State.END:
-		clear_stats()
 		current_game_state = State.WAITING
-		get_node("/root/World").rpc("hide_game_over")
-		get_tree().paused = false
+		calculate_score()
+		get_node("/root/World").rpc("show_game_over")
 
 		# Select and load a new level
 		if Globals.is_server:
