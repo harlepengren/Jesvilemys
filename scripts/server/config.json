@@ -1,5 +1,5 @@
 {
-	"_server_ip": "192.168.1.202",
-	"server_ip": "jesvilemys.com",
+	"server_ip": "192.168.1.202",
+	"_server_ip": "jesvilemys.com",
 	"signal_server_port": "8080"
 }
