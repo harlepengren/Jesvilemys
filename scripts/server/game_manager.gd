@@ -24,10 +24,6 @@ func _process(delta: float) -> void:
 	if not Globals.is_server: # Only the server gets to do things
 		return
 
-	if current_game_state == State.WAITING and (multiplayer.get_peers().size()) >= 2:
-		current_game_state = State.RUNNING
-		_start_timer(60.0)
-
 	if current_game_state == State.RUNNING:
 		get_tree().paused = false
 		time_since_last_update += delta
@@ -113,6 +109,15 @@ func register_name(player_name:String):
 		hit_stats[player_id] = {"player_name":player_name, "hits_given": 0, "hits_received": 0, "deaths": 0}
 	else:
 		hit_stats[player_id]["name"] = player_name
+
+@rpc('any_peer', 'reliable')
+func begin_game():
+	if not Globals.is_server:
+		return
+
+	if current_game_state == State.WAITING and (multiplayer.get_peers().size()) >= 2:
+		current_game_state = State.RUNNING
+		_start_timer(60.0)
 
 @rpc("any_peer", "reliable")
 func register_hit(attacker_id: int, victim_id: int):
