@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cxowdmwuulv6s" path="res://models/players/sebrina.glb" id="9_qfm1y"]
 [ext_resource type="PackedScene" uid="uid://bwaqmn3vbfi81" path="res://models/players/stefanie.glb" id="10_fulsm"]
 [ext_resource type="PackedScene" uid="uid://gdafgrxhl7x3" path="res://models/players/vannesa.glb" id="11_4r5pv"]
+[ext_resource type="FontFile" uid="uid://b53qy7nagfsnt" path="res://fonts/Zerove-Regular.otf" id="12_3v2ag"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qhqgy"]
 size = Vector3(0.4, 0.6, 0.4)
@@ -41,6 +42,12 @@ properties/5/replication_mode = 1
 [node name="Player" type="CharacterBody3D" unique_id=872718762]
 axis_lock_linear_z = true
 script = ExtResource("1_g2els")
+
+[node name="nameLabel" type="Label3D" parent="." unique_id=501375365]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+billboard = 1
+no_depth_test = true
+font = ExtResource("12_3v2ag")
 
 [node name="CharlieModel" parent="." unique_id=1087814130 instance=ExtResource("1_3vyb7")]
 visible = false

@@ -18,6 +18,7 @@ extends CharacterBody3D
 var air_time = self.max_air_time + 1
 
 @onready var punch_area_reference = $'Area3D'
+@onready var name_label_reference = $'nameLabel'
 
 @onready var world_reference = $'../'
 
@@ -87,6 +88,9 @@ func _ready() -> void:
 		return
 
 	if is_multiplayer_authority():
+		name_label_reference.text = Globals.player_name
+		name_label_reference.modulate = Color(0.3, 0.5, 1.0, 1.0)
+
 		var chosen = possible_skins.pick_random()
 		set_skin.rpc(chosen)
 
