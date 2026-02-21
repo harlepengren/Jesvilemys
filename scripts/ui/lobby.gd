@@ -13,13 +13,16 @@ var request_sent = false
 func _ready():
 	player_name_reference.text = "Player Name: " + Globals.player_name
 
-	var connection_details = load_config()
+	# test server
+	#var connection_details = load_config()
+	#if connection_details.has("server_ip") and connection_details.has("signal_server_port"):
+		#var server_ip = connection_details["server_ip"]
+		#var server_port = connection_details["signal_server_port"]
+	
+	var server_ip = "jesvilemys.com" #connection_details["server_ip"]
+	var server_port = "8080" #connection_details["signal_server_port"]
 
-	if connection_details.has("server_ip") and connection_details.has("signal_server_port"):
-		var server_ip = connection_details["server_ip"]
-		var server_port = connection_details["signal_server_port"]
-
-		connection_url = "ws://"+server_ip+":"+str(server_port)
+	connection_url = "wss://"+server_ip + ":" + server_port
 	print("Server info: " + connection_url)
 
 

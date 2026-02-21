@@ -3,7 +3,7 @@ extends Node
 var ip_addr
 var port
 
-var peer: ENetMultiplayerPeer
+var peer: WebSocketMultiplayerPeer
 
 func _ready():
 	var user_args = OS.get_cmdline_user_args()
@@ -42,6 +42,10 @@ func _ready():
 	
 func start_server() -> void:
 	print("starting the server . . .")
-	peer = ENetMultiplayerPeer.new()
+	peer = WebSocketMultiplayerPeer.new()
 	peer.create_server(port)
 	multiplayer.multiplayer_peer = peer
+	
+func _process(_delta: float) -> void:
+	if peer and peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED:
+		peer.poll()
