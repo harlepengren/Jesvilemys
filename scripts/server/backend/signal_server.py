@@ -86,8 +86,8 @@ async def main():
     # Create SSL context
     ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ssl_context.load_cert_chain(
-        certfile="keys/fullchain.txt",
-        keyfile="keys/private_key_nopass.txt"
+        certfile="certs/fullchain.pem",
+        keyfile="certs/privkey.pem"
     )
 
     print(f"Starting WSS server on {host}:{port}")
