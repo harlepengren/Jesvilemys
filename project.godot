@@ -13,6 +13,9 @@ config_version=5
 config/name="Jesvilemys"
 run/main_scene="uid://dmxg3f5my6rrw"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/stretch_mode=0
+boot_splash/image="uid://d4jik6k4yaxgl"
 config/icon="uid://dmipmf647kf2v"
 
 [autoload]
