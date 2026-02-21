@@ -117,6 +117,7 @@ func begin_game():
 	if not Globals.is_server:
 		return
 
+	clear_stats()
 	if current_game_state == State.WAITING and (multiplayer.get_peers().size()) >= 2:
 		current_game_state = State.RUNNING
 		_start_timer(60.0)
