@@ -17,6 +17,8 @@ extends Node3D
 var game_over_instance
 @onready var multiplayer_node = $Multiplayer
 
+@onready var loading_screen_reference = $'CanvasLayer/LoadingScreen'
+
 var playing_alone = false
 
 var current_level_info
@@ -71,6 +73,8 @@ func load_scene():
 	self.add_child(stage)
 	var background = load(current_level_info["level_background"]).instantiate()
 	self.add_child(background)
+
+	loading_screen_reference.hide()
 
 func _on_item_timer_timeout() -> void:
 	title_board_reference.change_colors(Color(0.8, 0.741, 0.98), Color(0.29, 0.0, 0.74))

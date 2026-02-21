@@ -76,6 +76,33 @@ size_flags_vertical = 8
 theme = ExtResource("5_7r4gi")
 text = "Begin Game"
 
+[node name="LoadingScreen" type="ColorRect" parent="CanvasLayer" unique_id=1489022784]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/LoadingScreen" unique_id=884220270]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -29.0
+offset_right = 101.5
+offset_bottom = 29.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("5_7r4gi")
+theme_override_font_sizes/font_size = 50
+text = "Loading..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Multiplayer" type="Node3D" parent="." unique_id=488225750]
 script = ExtResource("4_qfnet")
 
