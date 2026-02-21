@@ -2,6 +2,7 @@ extends Node
 
 var level_info:Dictionary
 var level_ids:Array =[]
+var current_level_num = 0
 
 var current_level:String 	# Name of current level that we can look up in level_info
 
@@ -42,7 +43,8 @@ func load_level() -> void:
 	get_node("/root/World").load_scene()
 
 func choose_random_level():
-	return level_ids.pick_random()
+	current_level_num += 1
+	return level_ids[current_level_num % len(level_ids)]
 	
 @rpc("authority","call_local","reliable")
 func select_new_level():
