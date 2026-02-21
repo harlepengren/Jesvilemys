@@ -30,7 +30,7 @@ func _enter_tree() -> void:
 		$Multiplayer.queue_free()
 		$MultiplayerSpawner.queue_free()
 	
-func _ready() -> void:	
+func _ready() -> void:
 	var port = Globals.get_port()
 	print("World loaded: starting on port ", port)
 
@@ -96,10 +96,8 @@ func spawn_simple_player(): # Used for basic testing
 
 func _on_begin_game_button_pressed() -> void:
 	$'CanvasLayer/MarginContainer/BeginGameButton'.release_focus()
-	get_node('/root/GameManager').rpc_id(1, 'begin_game')
-
+	get_node('/root/GameManager').rpc('begin_game')
 	get_node("/root/GameManager").clear_stats()
-	rpc("hide_game_over")
 
 
 # Updates time remaining on main game screen
@@ -109,16 +107,12 @@ func update_timer_display(time):
 
 @rpc("authority", "call_remote", "reliable")
 func show_game_over():
+	time_remaining_reference.text = 'Waiting for more players... (Press \'Begin Game\' when ready)'
+
 	game_over_instance = game_over_scene.instantiate()
 	$CanvasLayer.add_child(game_over_instance)
 	print("Showing game over")
-	
-@rpc("any_peer", "call_local", "reliable")
-func hide_game_over():
-	print("hiding game over")
-	if game_over_instance:
-		game_over_instance.queue_free()
-	
+
 # Updates the time on the game over screen
 @rpc("authority","call_remote","unreliable")
 func update_time(time):

@@ -66,7 +66,7 @@ size_flags_vertical = 0
 layout_mode = 2
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 32
-text = "time_remaining"
+text = "Waiting for more players... (Press 'Begin Game' when ready)"
 label_settings = SubResource("LabelSettings_7r4gi")
 
 [node name="BeginGameButton" type="Button" parent="CanvasLayer/MarginContainer" unique_id=1105847775]

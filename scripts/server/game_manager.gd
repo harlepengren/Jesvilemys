@@ -100,8 +100,14 @@ func register_name(player_name:String):
 	else:
 		hit_stats[player_id]["name"] = player_name
 
-@rpc('any_peer', 'reliable')
+@rpc('any_peer', 'call_local', 'reliable')
 func begin_game():
+	var world_reference = get_node('/root/World')
+	var game_over_reference = world_reference.game_over_instance
+
+	if game_over_reference:
+		game_over_reference.queue_free()
+
 	if not Globals.is_server:
 		return
 
