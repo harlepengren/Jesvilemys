@@ -2,6 +2,7 @@ extends Node3D
 
 
 @onready var player_name_reference = $'CanvasLayer/VBoxContainer/PlayerNamePanel/Label'
+@onready var quit_button_reference = $'CanvasLayer/VBoxContainer/QuitButton'
 
 
 var websocket := WebSocketPeer.new()
@@ -11,6 +12,9 @@ var request_sent = false
 
 
 func _ready():
+	if !OS.has_feature('web'):
+		quit_button_reference.show()
+
 	player_name_reference.text = "Player Name: " + Globals.player_name
 
 	connection_url = "wss://jesvilemys.com/signal"

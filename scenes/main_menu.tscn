@@ -102,6 +102,7 @@ theme = ExtResource("3_wu84c")
 text = "Single Player"
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/VBoxContainer" unique_id=2128527011]
+visible = false
 layout_mode = 2
 theme = ExtResource("3_wu84c")
 text = "Quit"
