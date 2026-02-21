@@ -70,10 +70,22 @@ func load_scene():
 		push_error("world load scene is null")
 		return
 	
+	var previous_stage = get_node_or_null("Stage")
+	if previous_stage != null:
+		previous_stage.queue_free()
+	var previous_background = get_node_or_null("Background")
+	if previous_background != null:
+		previous_background.queue_free()
+		
+	await get_tree().process_frame
+	await get_tree().process_frame
+	
 	var stage = load(current_level_info["level_stage"]).instantiate()
+	stage.name = "Stage"
 	self.add_child(stage)
 	var background = load(current_level_info["level_background"]).instantiate()
 	self.add_child(background)
+	background.name = "Background"
 
 	if loading_screen_reference:
 		loading_screen_reference.hide()
