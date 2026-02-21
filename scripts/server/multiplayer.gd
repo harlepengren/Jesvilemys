@@ -1,6 +1,6 @@
 extends Node
 
-var peer: ENetMultiplayerPeer
+var peer: WebSocketMultiplayerPeer
 
 #func start_server() -> void:
 #	print("starting the server . . .")
@@ -10,9 +10,10 @@ var peer: ENetMultiplayerPeer
 	
 func start_client(port:int) -> void:
 	print("starting the client . . .")
-	peer = ENetMultiplayerPeer.new()
-	print("attempting to connect on: " + Globals.get_ip_addr() + ":"+ str(port))
-	var error = peer.create_client(Globals.get_ip_addr(), port)
+	peer = WebSocketMultiplayerPeer.new()
+	var url = "wss://jesvilemys.com:" + str(port)
+	print("attempting to connect on: " + url)
+	var error = peer.create_client(url)
 	
 	if error != OK:
 		printerr("Failure connecting:",error)
@@ -26,5 +27,9 @@ func _on_connected_to_server():
 
 func _on_connection_failed():
 	printerr("Connection to server failed!")
+	
+func _process(_delta: float) -> void:
+	if peer and multiplayer.multiplayer_peer == peer:
+		peer.poll()
 	
 	
