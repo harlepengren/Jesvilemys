@@ -103,8 +103,6 @@ func spawn_simple_player(): # Used for basic testing
 func _on_begin_game_button_pressed() -> void:
 	begin_game_button_reference.release_focus()
 	get_node('/root/GameManager').rpc('begin_game')
-	get_node("/root/GameManager").clear_stats()
-
 
 # Updates time remaining on main game screen
 @rpc("authority", "call_remote", "unreliable")
