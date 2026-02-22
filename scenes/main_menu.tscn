@@ -135,6 +135,7 @@ scroll_active = false
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=2122177784]
 stream = ExtResource("6_rtw2f")
 autoplay = true
+parameters/looping = true
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/QuickJoinButton" to="." method="quick_start"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/PlayAlone" to="." method="play_alone"]
