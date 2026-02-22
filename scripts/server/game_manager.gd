@@ -117,6 +117,10 @@ func begin_game():
 	if not Globals.is_server:
 		return
 
+	for current_player in get_tree().get_nodes_in_group("players"):
+		var peer_id = current_player.name.to_int()
+		current_player.rpc_id(peer_id, "player_start_position")	
+	
 	clear_stats()
 	if current_game_state == State.WAITING and (multiplayer.get_peers().size()) >= 2:
 		current_game_state = State.RUNNING

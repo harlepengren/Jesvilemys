@@ -84,6 +84,7 @@ func set_skin(skin_name: String):
 		change_character_skin(skin_name)
 
 func _ready() -> void:
+	add_to_group("players")
 	if Globals.port == -1:
 		playing_alone = true
 	elif multiplayer.is_server():
@@ -98,6 +99,7 @@ func _ready() -> void:
 		set_skin.rpc(chosen)
 
 	get_node("/root/GameManager").rpc("register_name",Globals.player_name)
+	player_start_position()
 
 func _on_new_peer_connected(new_peer_id: int) -> void:
 	if synced_skin_name == '': return
@@ -312,3 +314,13 @@ func single_player_punched(knockback_strength: Vector3) -> bool:
 	self.velocity = knockback_strength
 
 	return true
+	
+@rpc("any_peer","call_local","reliable")
+func player_start_position():
+	if multiplayer.get_remote_sender_id() != 1:
+		return
+		
+	# reset the player position
+	print("resetting player position:",Globals.player_name)
+	var x = randf()*2 - 1.0
+	global_position = Vector3(x, 10.0, 0.0)
