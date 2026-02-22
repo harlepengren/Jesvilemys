@@ -113,6 +113,18 @@ func spawn_simple_player(): # Used for basic testing
 
 
 func _on_begin_game_button_pressed() -> void:
+	var player_count = 0
+
+	for child in self.get_children():
+		if child is CharacterBody3D:
+			player_count += 1
+
+	if player_count < 2:
+		title_board_reference.change_colors(Color(0.9, 0.6, 0.7, 1.0), Color(0.5, 0.0, 0.2, 1.0))
+		title_board_reference.display_text('Not enough players to start')
+
+		return
+
 	begin_game_button_reference.release_focus()
 	get_node('/root/GameManager').rpc('begin_game')
 
@@ -123,7 +135,7 @@ func update_timer_display(time):
 
 @rpc("authority", "call_remote", "reliable")
 func show_game_over():
-	time_remaining_reference.text = 'Waiting for more players... (Press \'Begin Game\' when ready)'
+	time_remaining_reference.text = 'Waiting for more players...'
 	begin_game_button_reference.show()
 
 	game_over_instance = game_over_scene.instantiate()
