@@ -120,7 +120,7 @@ func begin_game():
 	clear_stats()
 	if current_game_state == State.WAITING and (multiplayer.get_peers().size()) >= 2:
 		current_game_state = State.RUNNING
-		_start_timer(60.0)
+		_start_timer(90.0)
 
 @rpc("any_peer", "reliable")
 func register_hit(attacker_id: int, victim_id: int):
