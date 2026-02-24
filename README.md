@@ -1,4 +1,5 @@
-# Jesvilemys
+<img src='logo.png'/>
+
 A quick and replayable game about fighting! Expertly run around, jump, and possibly dash to gain an edge over other players; All in the faith of winning! Every few minutes, all the item's *souls* will swap places. Places of safety and sanity reverse as players and items change tactics.
 
 # Item Souls

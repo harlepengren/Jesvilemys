@@ -30,6 +30,10 @@ SceneManager="*uid://be1sqtkan3jyb"
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
+[editor]
+
+movie_writer/movie_file="export/movies/main.avi"
+
 [input]
 
 player_move_left={
