@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="5_i7141"]
 [ext_resource type="PackedScene" uid="uid://s066fgmijkyf" path="res://scenes/player.tscn" id="6_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://0vrthi6v5ug2" path="res://scenes/countdown.tscn" id="6_o8fc1"]
-[ext_resource type="AudioStream" uid="uid://dlm4r42nwp2yh" path="res://music/red_carpet.mp3" id="8_4mrxx"]
+[ext_resource type="AudioStream" uid="uid://dmkxf126d0781" path="res://music/glowing_score.mp3" id="10_o8fc1"]
 [ext_resource type="AudioStream" uid="uid://csp2jupqn15ui" path="res://sounds/hit.mp3" id="10_w7kh3"]
 [ext_resource type="AudioStream" uid="uid://cnpo5x4d7g66r" path="res://sounds/step_var_0.mp3" id="11_jhx03"]
 [ext_resource type="AudioStream" uid="uid://c6djajswu8gjn" path="res://sounds/step_var_1.mp3" id="12_o8fc1"]
@@ -127,7 +127,7 @@ script = ExtResource("5_i7141")
 network_player = ExtResource("6_4mrxx")
 
 [node name="BackgroundMusicPlayer" type="AudioStreamPlayer" parent="." unique_id=350384074]
-stream = ExtResource("8_4mrxx")
+stream = ExtResource("10_o8fc1")
 
 [node name="HitSoundPlayer" type="AudioStreamPlayer" parent="." unique_id=1699734094]
 stream = ExtResource("10_w7kh3")

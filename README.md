@@ -19,5 +19,5 @@ Item souls are what items *do*. Item souls can swap *bodies*, which means that a
 - Zerove font - Credit to GGBotNet at https://www.ggbot.net - Under CC0
 
 ## Exclusive to Jesvilemys
-- Red Carpet - Created and rendered using MuseScore Studio
+- Glowing Score - Created and rendered using MuseScore Studio
 - Red Carpet Title - Created and rendered using MuseScore Studio
