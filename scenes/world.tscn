@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://b546umxs75n8s" path="res://styles/main.tres" id="5_7r4gi"]
 [ext_resource type="Script" uid="uid://dtg5wfuufmv4g" path="res://scripts/server/multiplayer_spawner.gd" id="5_i7141"]
 [ext_resource type="PackedScene" uid="uid://s066fgmijkyf" path="res://scenes/player.tscn" id="6_4mrxx"]
+[ext_resource type="PackedScene" uid="uid://0vrthi6v5ug2" path="res://scenes/countdown.tscn" id="6_o8fc1"]
 [ext_resource type="AudioStream" uid="uid://dlm4r42nwp2yh" path="res://music/red_carpet.mp3" id="8_4mrxx"]
 [ext_resource type="AudioStream" uid="uid://csp2jupqn15ui" path="res://sounds/hit.mp3" id="10_w7kh3"]
 [ext_resource type="AudioStream" uid="uid://cnpo5x4d7g66r" path="res://sounds/step_var_0.mp3" id="11_jhx03"]
@@ -87,6 +88,8 @@ size_flags_vertical = 8
 theme = ExtResource("5_7r4gi")
 text = "Begin Game"
 
+[node name="Countdown" parent="CanvasLayer" unique_id=650281165 instance=ExtResource("6_o8fc1")]
+
 [node name="LoadingScreen" type="ColorRect" parent="CanvasLayer" unique_id=1489022784]
 anchors_preset = 15
 anchor_right = 1.0
@@ -136,3 +139,4 @@ stream = SubResource("AudioStreamRandomizer_dss4m")
 [connection signal="body_entered" from="DeathBoundary" to="." method="_on_death_boundary_body_entered"]
 [connection signal="timeout" from="ItemTimer" to="." method="_on_item_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/BeginGameButton" to="." method="_on_begin_game_button_pressed"]
+[connection signal="countdown_finish" from="CanvasLayer/Countdown" to="." method="_on_countdown_finish"]

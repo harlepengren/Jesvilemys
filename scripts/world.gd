@@ -20,6 +20,8 @@ var game_over_instance
 
 @onready var loading_screen_reference = $'CanvasLayer/LoadingScreen'
 
+@onready var countdown_reference = $'CanvasLayer/Countdown'
+
 var playing_alone = false
 
 var current_level_info
@@ -127,6 +129,14 @@ func _on_begin_game_button_pressed() -> void:
 
 	begin_game_button_reference.release_focus()
 	get_node('/root/GameManager').rpc('begin_game')
+
+
+func _on_countdown_finish() -> void:
+	var client_player = get_node(str(multiplayer.get_unique_id()))
+
+	client_player.disable_movement = false
+	client_player.disable_jump = false
+
 
 # Updates time remaining on main game screen
 @rpc("authority", "call_remote", "unreliable")

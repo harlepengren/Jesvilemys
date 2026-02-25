@@ -111,6 +111,8 @@ func begin_game():
 
 	background_music_reference.play()
 
+	world_reference.countdown_reference.start_countdown(3.0, 'Begin!')
+
 	if game_over_reference:
 		game_over_reference.queue_free()
 

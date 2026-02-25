@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://0vrthi6v5ug2"]
+
+[ext_resource type="Script" uid="uid://cbn725ddr22px" path="res://scripts/countdown.gd" id="1_c8cft"]
+[ext_resource type="Theme" uid="uid://b546umxs75n8s" path="res://styles/main.tres" id="2_c4awr"]
+
+[node name="Countdown" type="Control" unique_id=650281165]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c8cft")
+
+[node name="Label" type="Label" parent="." unique_id=2104080061]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -17.0
+offset_top = -20.5
+offset_right = 17.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_c4awr")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="." unique_id=533420451]
+one_shot = true
+ignore_time_scale = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
